@@ -24,7 +24,7 @@ import com.cryptoapp.ui.components.CryptoInfoList
 @Composable
 fun CryptoListScreen(
     viewModel: CryptoListViewModel,
-    //onCountryRowTap: (countryIndex: Int) -> Unit,
+    onCryptoRowTap: (countryId: Int) -> Unit,
     //onAboutTap: () -> Unit,
     //onSettingsTap: () -> Unit,
 ) {
@@ -70,6 +70,7 @@ fun CryptoListScreen(
                 is CryptoListState.Success -> CryptoInfoList(
                     cryptos = state.countries,
                     onRefreshTap = viewModel::fetchCryptos,
+                    onCryptoRowTap = onCryptoRowTap,
                 )
                 is CryptoListState.Error -> {}
             }
