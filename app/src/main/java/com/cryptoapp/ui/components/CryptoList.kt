@@ -17,6 +17,7 @@ import com.cryptoapp.models.Crypto
 fun CryptoInfoList(
     cryptos: List<Crypto>,
     onRefreshTap: () -> Unit,
+    onCryptoRowTap: (countryId: Int) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -28,10 +29,12 @@ fun CryptoInfoList(
             }
         }
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            itemsIndexed(cryptos) { index, crypto ->
+            itemsIndexed(cryptos) { id, crypto ->
                 CryptoInfoRow(
                     crypto = crypto,
-                    onTap = {}
+                    onTap = {
+                        onCryptoRowTap(id)
+                    },
                 )
             }
         }
