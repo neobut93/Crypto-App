@@ -66,7 +66,7 @@ fun CryptoDetails(
         }
 
         item {
-            Row(modifier = Modifier.padding(all = 5.dp)) {
+            Row(modifier = Modifier.padding(all = 5.dp), horizontalArrangement = Arrangement.End){
                 Column {
 
                     Text(
@@ -107,7 +107,7 @@ fun CryptoDetails(
                 modifier = Modifier.padding(all = 5.dp),
                 fontStyle = FontStyle.Italic
             )
-            //todo add right alignment for values
+            //todo add right alignment for values(add 1 more lazy column probably + combine UI into small blocks)
             Text(
                 text = "Market Cap Rank: #" + crypto.market_cap_rank,
                 fontWeight = FontWeight.Bold
