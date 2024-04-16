@@ -9,10 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,10 +32,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+//import co.yml.charts.ui.linechart.LineChart
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.utils.PriceFormatting
+
 
 @Composable
 fun CryptoDetails(
@@ -40,6 +45,8 @@ fun CryptoDetails(
     modifier: Modifier,
 ) {
     Column(modifier = modifier.padding(start = 8.dp)) {
+        Text(text = "Current price")
+
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 text = "$" + PriceFormatting.formatCurrentPrice(crypto.current_price),
@@ -56,42 +63,32 @@ fun CryptoDetails(
                 modifier = Modifier.padding(start = 5.dp)
             )
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        Divider(color = Color(0xFFCECED5))
+
+        Text(text = "24h data:")
+
+        Row(modifier = Modifier.padding(all = 8.dp)) {
+
+            Column {
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(text = "Max price: " + PriceFormatting.formatCurrentPrice(crypto.high_24h) + "$")
+
+                Spacer(modifier = Modifier.height(10.dp))
+                // add handler
+                Text(text = "Price change: " + PriceFormatting.formatCurrentPrice(crypto.price_change_24h))
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Low price: " + PriceFormatting.formatCurrentPrice(crypto.low_24h) + "$"
+                )
+
+            }
+            // add prices handler + color
+            PerformanceChart(modifier = Modifier
+                .width(150.dp).height(100.dp).padding(start = 20.dp)
+            )
+        }
     }
-//    LazyColumn(modifier = modifier.padding(start = 10.dp)) {
-//        item {
-//
-//        }
-//
-//
-//        item { Text(text = "Population: ${crypto.market_cap}") }
-//        item { Text(text = "Area: ${crypto.price_change_24h}") }
-//        item {
-//            var expanded by remember { mutableStateOf(false) }
-//            val flagTransition = updateTransition(
-//                targetState = expanded,
-//                label = "details_transition",
-//            )
-//            val widthAnimation by flagTransition.animateDp(
-//                label = "details_size",
-//            ) { state ->
-//                if (state) {
-//                    300.dp
-//                } else {
-//                    150.dp
-//                }
-//            }
-//            AsyncImage(
-//                model = ImageRequest.Builder(LocalContext.current)
-//                    .data(crypto.image)
-//                    .crossfade(true)
-//                    .build(),
-//                contentDescription = "Flag",
-//                contentScale = ContentScale.FillWidth,
-//                modifier = Modifier
-//                    .border(1.dp, color = MaterialTheme.colorScheme.primary)
-//                    .width(widthAnimation)
-//                    .clickable { expanded = !expanded },
-//            )
-//        }
-//    }
 }

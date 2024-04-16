@@ -20,5 +20,7 @@ data class Crypto(
     val market_cap_change_percentage_24h: Double,
     val market_cap: Long,
     val market_cap_rank: Int,
+    val high_24h: Double,
+    val low_24h: Double,
     //val isFavorite: Boolean = false,
 ) : Parcelable

@@ -13,11 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.cryptoapp.ui.components.CryptoDetails
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,9 +51,9 @@ fun CryptoDetailsScreen(
             is CryptoDetailsState.Loading -> {
             }
             is CryptoDetailsState.Success -> {
-                val country = countryDetailsState.crypto
+                val crypto = countryDetailsState.crypto
                 CryptoDetails(
-                    crypto = country,
+                    crypto = crypto,
                     modifier = Modifier.padding(padding),
                 )
             }
