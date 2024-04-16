@@ -9,7 +9,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(10f, 20f, 3f, 1f)) {
+fun PerformanceChart(modifier: Modifier = Modifier, startPrice: Float, highestPrice: Float, lowestPrice: Float, currentPrice: Float) {
+    val list: List<Float> = listOf(startPrice, highestPrice, lowestPrice, currentPrice)
     val zipList: List<Pair<Float, Float>> = list.zipWithNext()
 
     fun getValuePercentageForRange(value: Float, max: Float, min: Float) =
@@ -20,7 +21,7 @@ fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(1
         val min = list.min()
 
         val lineColor =
-            if (list.last() > list.first()) Color.Red else Color.Green // <-- Line color is Green if its going up and Red otherwise
+            if (list.last() > list.first()) Color(0xFF63B960) else Color.Red // <-- Line color is Green if its going up and Red otherwise
 
         for (pair in zipList) {
 
