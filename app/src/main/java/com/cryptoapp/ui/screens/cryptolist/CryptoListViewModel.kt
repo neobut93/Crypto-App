@@ -1,5 +1,8 @@
 package com.cryptoapp.ui.screens.cryptolist
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptoapp.repositories.CryptoRepository
@@ -21,9 +24,11 @@ class CryptoListViewModel @Inject constructor(
 
     val uiState: StateFlow<CryptoListState> = _uiState.asStateFlow()
 
+    var isRefreshing by mutableStateOf(false)
+        private set
+
     init {
         viewModelScope.launch {
-            delay(3000)
             repository
                 .cryptos
                 .catch {
@@ -33,11 +38,12 @@ class CryptoListViewModel @Inject constructor(
                     _uiState.value = CryptoListState.Success(it)
                 }
         }
-
         fetchCryptos()
     }
 
     fun fetchCryptos() {
+        isRefreshing = true
+
         _uiState.value = CryptoListState.Loading
 
         viewModelScope.launch {
@@ -47,6 +53,6 @@ class CryptoListViewModel @Inject constructor(
                 _uiState.value = CryptoListState.Error(e)
             }
         }
+        isRefreshing = false
     }
-
 }

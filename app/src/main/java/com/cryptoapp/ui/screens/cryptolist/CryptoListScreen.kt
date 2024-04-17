@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -30,6 +31,8 @@ fun CryptoListScreen(
     //onSettingsTap: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsState()
+    val pullRefreshState = rememberPullRefreshState(refreshing =
+    viewModel.isRefreshing, onRefresh = { viewModel.fetchCryptos() })
 
     Scaffold(
         topBar = {
@@ -70,8 +73,9 @@ fun CryptoListScreen(
                 is CryptoListState.Loading -> Loading()
                 is CryptoListState.Success -> CryptoInfoList(
                     cryptos = state.countries,
-                    onRefreshTap = viewModel::fetchCryptos,
                     onCryptoRowTap = onCryptoRowTap,
+                    pullRefreshState = pullRefreshState,
+                    isRefreshing = viewModel.isRefreshing
                 )
                 is CryptoListState.Error -> {}
             }
