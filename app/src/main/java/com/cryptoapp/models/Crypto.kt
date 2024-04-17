@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-@Entity(tableName = "crypto")
+@Entity(tableName = "cryptos")
 data class Crypto(
     @PrimaryKey
     val id: String,

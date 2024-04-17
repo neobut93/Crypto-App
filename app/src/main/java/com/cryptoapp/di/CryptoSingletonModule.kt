@@ -5,6 +5,7 @@ import com.cryptoapp.network.CryptoService
 import com.cryptoapp.network.MyInterceptor
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.repositories.CryptoRepositoryImpl
+import com.kodeco.android.countryinfo.database.CryptoDatabase
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -38,11 +39,11 @@ class CryptoSingletonModule {
         return retrofit.create(CryptoService::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideCountryDatabase(@ApplicationContext applicationContext: Context): CountryDatabase {
-//        return CountryDatabase.buildDatabase(applicationContext)
-//    }
+    @Provides
+    @Singleton
+    fun provideCryptoDatabase(@ApplicationContext applicationContext: Context): CryptoDatabase {
+        return CryptoDatabase.buildDatabase(applicationContext)
+    }
 
 //    @Provides
 //    @Singleton
@@ -54,5 +55,6 @@ class CryptoSingletonModule {
     @Singleton
     fun providesCryptoRepository(
         service: CryptoService,
-    ): CryptoRepository = CryptoRepositoryImpl(service)
+        database: CryptoDatabase
+    ): CryptoRepository = CryptoRepositoryImpl(service, database.cryptoDao())
 }
