@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.cryptoapp.ui.components.CryptoInfoList
+import com.cryptoapp.ui.components.Loading
 
 @SuppressLint("UnusedCrossfadeTargetStateParameter")
 @Composable
@@ -66,7 +67,7 @@ fun CryptoListScreen(
             contentKey = { it.javaClass },
         ) { state ->
             when (state) {
-                is CryptoListState.Loading -> {}
+                is CryptoListState.Loading -> Loading()
                 is CryptoListState.Success -> CryptoInfoList(
                     cryptos = state.countries,
                     onRefreshTap = viewModel::fetchCryptos,

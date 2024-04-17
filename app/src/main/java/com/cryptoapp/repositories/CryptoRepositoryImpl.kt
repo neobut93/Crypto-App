@@ -33,7 +33,7 @@ class CryptoRepositoryImpl(
         } catch (e: Exception) {
             cryptoDao.getAllCryptos()
             //throw Throwable("Request failed: ${e.message}")
-           // _cryptos.value
+            _cryptos.value
         }
     }
 

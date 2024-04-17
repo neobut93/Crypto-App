@@ -42,9 +42,9 @@ fun CryptoDetails(
                     fontWeight = FontWeight.Bold, fontSize = 45.sp
                 )
                 Text(
-                    text = PriceFormatting.formatPercentageChange(crypto.market_cap_change_percentage_24h) + " %",
+                    text = PriceFormatting.formatPercentageChange(crypto.price_change_percentage_24h) + " %",
                     fontWeight = FontWeight.Bold, fontSize = 15.sp,
-                    color = if (crypto.market_cap_change_percentage_24h > 0) {
+                    color = if (crypto.price_change_percentage_24h > 0) {
                         Color(0xFF63B960)
                     } else {
                         Color.Red
