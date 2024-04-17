@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.retrofit.moshi)
     implementation(libs.retrofit.moshi.converter)
     implementation(libs.coil)
+    implementation(libs.splash)
 
     implementation(libs.room)
     implementation(libs.room.runtime)
