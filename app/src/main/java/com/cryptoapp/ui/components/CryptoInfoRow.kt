@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -76,9 +75,9 @@ fun CryptoInfoRow(
                 modifier = Modifier.weight(0.6f), fontWeight = FontWeight.Bold, fontSize = 18.sp
             )
             Text(
-                text = PriceFormatting.formatPercentageChange(crypto.market_cap_change_percentage_24h) + " %",
+                text = PriceFormatting.formatPercentageChange(crypto.price_change_percentage_24h) + " %",
                 modifier = Modifier.weight(0.4f), fontWeight = FontWeight.Bold, fontSize = 18.sp,
-                color = if (crypto.market_cap_change_percentage_24h > 0) {
+                color = if (crypto.price_change_percentage_24h > 0) {
                     Color(0xFF63B960)
                 } else {
                     Color.Red

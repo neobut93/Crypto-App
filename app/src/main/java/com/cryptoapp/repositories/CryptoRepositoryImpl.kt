@@ -31,9 +31,8 @@ class CryptoRepositoryImpl(
                 throw Throwable("Request failed: ${cryptosResponse.message()}")
             }
         } catch (e: Exception) {
+            _cryptos.value = emptyList()
             cryptoDao.getAllCryptos()
-            //throw Throwable("Request failed: ${e.message}")
-           // _cryptos.value
         }
     }
 
