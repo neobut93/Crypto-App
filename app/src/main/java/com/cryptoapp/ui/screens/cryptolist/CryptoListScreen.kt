@@ -31,8 +31,10 @@ fun CryptoListScreen(
     //onSettingsTap: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsState()
+    val refreshState by viewModel.refreshState.collectAsState()
+
     val pullRefreshState = rememberPullRefreshState(refreshing =
-    viewModel.isRefreshing, onRefresh = { viewModel.fetchCryptos() })
+    refreshState, onRefresh = { viewModel.fetchCryptos() })
 
     Scaffold(
         topBar = {
@@ -75,7 +77,7 @@ fun CryptoListScreen(
                     cryptos = state.countries,
                     onCryptoRowTap = onCryptoRowTap,
                     pullRefreshState = pullRefreshState,
-                    isRefreshing = viewModel.isRefreshing
+                    isRefreshing = refreshState
                 )
                 is CryptoListState.Error -> {}
             }
