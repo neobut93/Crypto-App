@@ -88,21 +88,21 @@ fun CryptoInfoRow(
     }
 }
 
-@Preview
-@Composable
-fun CryptoInfoRowPreview() {
-    CryptoInfoRow(
-        crypto = Crypto(
-            "Bitcoin",
-            "btc",
-            "url",
-            65498.00,
-            1178.66,
-            12321.00,
-            1293286386553,
-            1
-        )
-    ) {
-
-    }
-}
+//@Preview
+//@Composable
+//fun CryptoInfoRowPreview() {
+//    CryptoInfoRow(
+//        crypto = Crypto(
+//            "Bitcoin",
+//            "btc",
+//            "url",
+//            65498.00,
+//            1178.66,
+//            12321.00,
+//            1293286386553,
+//            1
+//        )
+//    ) {
+//
+//    }
+//}

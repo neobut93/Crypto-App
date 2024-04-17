@@ -3,7 +3,7 @@ package com.cryptoapp.utils
 object PriceFormatting {
 
     fun formatCurrentPrice(currentPrice: Double): String {
-        return if (currentPrice > 1) {
+        return if (Math.abs(currentPrice) > 1) {
             DataFormatting.formatHighPrice(currentPrice)
         } else if (currentPrice < 1 && currentPrice > 0.0001) {
             DataFormatting.formatLowPrice(currentPrice)
