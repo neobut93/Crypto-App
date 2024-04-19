@@ -6,6 +6,8 @@ import com.cryptoapp.network.MyInterceptor
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.repositories.CryptoRepositoryImpl
 import com.kodeco.android.countryinfo.database.CryptoDatabase
+import com.kodeco.android.countryinfo.datastore.CryptoPrefs
+import com.cryptoapp.datastore.CryptoPrefsImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -45,10 +47,10 @@ class CryptoSingletonModule {
         return CryptoDatabase.buildDatabase(applicationContext)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideCountryPrefs(@ApplicationContext applicationContext: Context
-//    ): CountryPrefs = CountryPrefsImpl(applicationContext)
+    @Provides
+    @Singleton
+    fun provideCryptoPrefs(@ApplicationContext applicationContext: Context
+    ): CryptoPrefs = CryptoPrefsImpl(applicationContext)
 
 
     @Provides
