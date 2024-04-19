@@ -28,7 +28,7 @@ fun CryptoNavHost(
     val context = LocalContext.current
     val prefs = CryptoPrefsImpl(context)
 
-    val favoritesBoolean by viewModel.getWelcome().collectAsState(initial = false)
+    val favoritesBoolean by viewModel.getWelcome().collectAsState(initial = true)
 
     Log.d("GGG", favoritesBoolean.toString())
 

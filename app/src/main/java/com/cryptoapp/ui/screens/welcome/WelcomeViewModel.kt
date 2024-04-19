@@ -14,12 +14,12 @@ class WelcomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getWelcome(): Flow<Boolean> {
-        return prefs.getWelcomeScreenEnabled()
+        return prefs.getWelcomeScreen()
     }
 
     fun setWelcomeScreen(isSet: Boolean) {
         viewModelScope.launch {
-            prefs.toggleWelcomeScreen(isSet)
+            prefs.disableWelcomeScreen(isSet)
         }
     }
 }

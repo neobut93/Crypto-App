@@ -9,7 +9,6 @@ import com.kodeco.android.countryinfo.datastore.CryptoPrefs
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class CryptoPrefsImpl @Inject constructor(@ApplicationContext context: Context) 
 
     private val dataStore = context.dataStore
 
-    override fun getWelcomeScreenEnabled(): Flow<Boolean> {
+    override fun getWelcomeScreen(): Flow<Boolean> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -38,14 +37,9 @@ class CryptoPrefsImpl @Inject constructor(@ApplicationContext context: Context) 
             }
     }
 
-    override suspend fun toggleWelcomeScreen(value: Boolean) {
+    override suspend fun disableWelcomeScreen(value: Boolean) {
         dataStore.edit { pref ->
             pref[welcomeKey] = value
         }
-    }
-
-    suspend fun getLWelcomeScreenToggle(): Boolean? {
-        val toggle =  dataStore.data.first()
-        return toggle[welcomeKey]
     }
 }
