@@ -16,19 +16,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.cryptoapp.datastore.PreferencesManager
 import com.cryptoapp.ui.components.CryptoWelcomePage
 import kotlinx.coroutines.coroutineScope
 
 @Composable
 fun CryptoWelcomeScreen(
-    viewModel: WelcomeViewModel
+    navigate: () -> Unit
 ) {
-    //val favoritesBoolean by viewModel.getWelcome().collectAsState(initial = true)
-    //Log.d("GGG", favoritesBoolean.toString())
+    val context = LocalContext.current
+    val preferencesManager = remember { PreferencesManager(context) }
+    val data = remember { mutableStateOf(preferencesManager.getData("myKey", true)) }
+
+    Log.d("AAA_WELCOME", data.value.toString())
 
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -43,7 +50,8 @@ fun CryptoWelcomeScreen(
         ) {
             Button(
                 onClick = {
-                    viewModel.setWelcomeScreen(false)
+                    preferencesManager.saveData("myKey", false)
+                    navigate()
                 },
                 shape = RoundedCornerShape(size = 6.dp)
             ) {
@@ -51,7 +59,6 @@ fun CryptoWelcomeScreen(
             }
         }
     }
-    //Log.d("GGG", favoritesBoolean.toString())
 }
 
 

@@ -19,15 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModels<WelcomeViewModel>()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
             CryptoAppTheme {
-                CryptoNavHost(viewModel)
+                CryptoNavHost()
             }
         }
     }

@@ -1,9 +1,11 @@
 package com.cryptoapp.ui.screens.cryptolist
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cryptoapp.repositories.CryptoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -46,6 +48,7 @@ class CryptoListViewModel @Inject constructor(
         _uiState.value = CryptoListState.Loading
 
         viewModelScope.launch {
+            delay(3000)
             try {
                 repository.fetchCryptos()
             } catch (e: Exception) {
