@@ -39,25 +39,7 @@ fun CryptoListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("TollBar") },
-                actions = {
-                    IconButton(
-                        onClick = {},
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = "text 1",
-                        )
-                    }
-                    IconButton(
-                        onClick = {},
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.Help,
-                            contentDescription = "text 2",
-                        )
-                    }
-                }
+                title = { Text("CryptoApp") },
             )
         },
     ) { padding ->

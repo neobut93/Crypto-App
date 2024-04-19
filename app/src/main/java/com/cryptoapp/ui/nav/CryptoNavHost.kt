@@ -28,19 +28,21 @@ fun CryptoNavHost(
     val context = LocalContext.current
     val prefs = CryptoPrefsImpl(context)
 
-    val favoritesBoolean by viewModel.getWelcome().collectAsState(initial = true)
+    // set start screen as splash and then add logic to that screen to decide the startDestination
 
-    Log.d("GGG", favoritesBoolean.toString())
+    val welcomeBoolean by viewModel.getWelcome().collectAsState(initial = true)
 
-
-    NavHost(navController = navController, startDestination = Screen.List.path) {
-
+    Log.d("GGG", welcomeBoolean.toString())
 
 
+    NavHost(navController = navController, startDestination = if(welcomeBoolean) Screen.Welcome.path else Screen.List.path) {
+
+        composable(Screen.Welcome.path) {
+            CryptoWelcomeScreen(viewModel = hiltViewModel(),
+                navigate = {navController.navigate(Screen.List.path)}
+                )
+        }
         composable(Screen.List.path) {
-            if(favoritesBoolean) {
-                CryptoWelcomeScreen(viewModel = hiltViewModel())
-            } else {
                 CryptoListScreen(
                     viewModel = hiltViewModel(),
                     onCryptoRowTap = { cryptoId ->
@@ -49,7 +51,6 @@ fun CryptoNavHost(
                     //onAboutTap = { navController.navigate(Screen.About.path) },
                     //onSettingsTap = { navController.navigate(Screen.Settings.path) },
                 )
-            }
 
         }
 

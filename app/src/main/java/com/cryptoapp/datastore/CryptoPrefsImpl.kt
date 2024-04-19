@@ -22,6 +22,7 @@ class CryptoPrefsImpl @Inject constructor(@ApplicationContext context: Context) 
 
     private val dataStore = context.dataStore
 
+    // add int instead of bool
     override fun getWelcomeScreen(): Flow<Boolean> {
         return dataStore.data
             .catch { exception ->

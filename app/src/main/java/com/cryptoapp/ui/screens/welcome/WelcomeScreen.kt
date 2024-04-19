@@ -23,7 +23,8 @@ import com.cryptoapp.ui.components.CryptoWelcomePage
 
 @Composable
 fun CryptoWelcomeScreen(
-    viewModel: WelcomeViewModel
+    viewModel: WelcomeViewModel,
+    navigate: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         CryptoWelcomePage()
@@ -38,6 +39,7 @@ fun CryptoWelcomeScreen(
             Button(
                 onClick = {
                     viewModel.setWelcomeScreen(false)
+                    navigate()
                 },
                 shape = RoundedCornerShape(size = 6.dp)
             ) {
