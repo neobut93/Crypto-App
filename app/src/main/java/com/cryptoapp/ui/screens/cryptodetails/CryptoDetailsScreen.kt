@@ -1,6 +1,10 @@
 package com.cryptoapp.ui.screens.cryptodetails
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,7 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.sample.sampleCrypto
@@ -22,6 +33,7 @@ import com.cryptoapp.ui.screens.cryptodetails.components.CryptoDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +52,23 @@ fun CryptoDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = (uiState.value as? CryptoDetailsState.Success)?.crypto?.symbol.orEmpty())
+                    Row {
+                        (uiState.value as? CryptoDetailsState.Success)?.crypto?.symbol?.let {
+                            Text(text = it.toUpperCase(
+                                Locale.ROOT), fontWeight = FontWeight.Bold)
+                        }
+                        Spacer(modifier = Modifier.size(8.dp))
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data((uiState.value as? CryptoDetailsState.Success)?.crypto?.image)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = stringResource(R.string.cryptoicon),
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+                    }
+
                 },
                 navigationIcon = {
                     IconButton(onClick = {
