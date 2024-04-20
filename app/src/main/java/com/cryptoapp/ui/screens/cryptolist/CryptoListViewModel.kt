@@ -48,7 +48,6 @@ class CryptoListViewModel @Inject constructor(
         _uiState.value = CryptoListState.Loading
 
         viewModelScope.launch {
-            delay(3000)
             try {
                 repository.fetchCryptos()
             } catch (e: Exception) {

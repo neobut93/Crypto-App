@@ -1,6 +1,5 @@
 package com.cryptoapp.ui.nav
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.cryptoapp.datastore.PreferencesConstants.WELCOME_KEY
 import com.cryptoapp.datastore.PreferencesManager
 import com.cryptoapp.ui.screens.Screen
 import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsScreen
@@ -23,13 +23,16 @@ fun CryptoNavHost(
     val navController = rememberNavController()
     val context = LocalContext.current
     val preferencesManager = remember { PreferencesManager(context) }
-    val data = remember { mutableStateOf(preferencesManager.getData("myKey", true)) }
+    val preferencesData =
+        remember { mutableStateOf(preferencesManager.getData(WELCOME_KEY, false)) }
 
-
-    Log.d("AAA_NAV_HOST", data.value.toString())
-
-    NavHost(navController = navController,
-        startDestination = if(data.value) {Screen.Welcome.path} else {Screen.List.path}
+    NavHost(
+        navController = navController,
+        startDestination = if (preferencesData.value) {
+            Screen.List.path
+        } else {
+            Screen.Welcome.path
+        }
     ) {
         composable(Screen.Welcome.path) {
             CryptoWelcomeScreen {
@@ -37,13 +40,13 @@ fun CryptoNavHost(
             }
         }
         composable(Screen.List.path) {
-                CryptoListScreen(
-                    viewModel = hiltViewModel(),
-                    onCryptoRowTap = { cryptoId ->
-                        navController.navigate("${Screen.Details.path}/$cryptoId")
-                    }
-                )
-            }
+            CryptoListScreen(
+                viewModel = hiltViewModel(),
+                onCryptoRowTap = { cryptoId ->
+                    navController.navigate("${Screen.Details.path}/$cryptoId")
+                }
+            )
+        }
         composable(
             route = "${Screen.Details.path}/{cryptoId}",
             arguments = listOf(navArgument("cryptoId") { type = NavType.IntType }),

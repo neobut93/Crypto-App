@@ -27,7 +27,4 @@ interface CryptoDao {
 
     @Update
     suspend fun updateCrypto(crypto: Crypto)
-
-//    @Query("SELECT * FROM countries WHERE isFavorite = 1")
-//    suspend fun getFavoriteCountries(): List<Country>
 }
