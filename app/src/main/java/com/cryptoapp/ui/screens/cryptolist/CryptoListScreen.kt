@@ -1,6 +1,7 @@
 package com.cryptoapp.ui.screens.cryptolist
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import com.cryptoapp.ui.components.CryptoInfoList
 import com.cryptoapp.ui.components.ErrorScreen
 import com.cryptoapp.ui.components.Loading
@@ -31,6 +32,7 @@ fun CryptoListScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val refreshState by viewModel.refreshState.collectAsState()
+    val activity = (LocalContext.current as? Activity)
 
     val pullRefreshState = rememberPullRefreshState(refreshing =
     refreshState, onRefresh = { viewModel.fetchCryptos() })
@@ -78,10 +80,11 @@ fun CryptoListScreen(
                     pullRefreshState = pullRefreshState,
                     isRefreshing = refreshState
                 )
+
                 is CryptoListState.Error -> {
-                    ErrorScreen(error = state.error) {
-                        viewModel.fetchCryptos()
-                    }
+                    ErrorScreen(error = state.error,
+                        onRetry = { viewModel.fetchCryptos() },
+                        onAppClose = { activity?.finish() })
                 }
             }
         }
