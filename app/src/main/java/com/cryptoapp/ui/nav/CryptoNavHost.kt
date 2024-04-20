@@ -53,7 +53,7 @@ fun CryptoNavHost(
         ) { backStackEntry ->
             val countryIndex = backStackEntry.arguments!!.getInt("cryptoId")
             CryptoDetailsScreen(
-                countryIndex = countryIndex,
+                cryptoIndex = countryIndex,
                 viewModel = hiltViewModel(),
                 onNavigateUp = { navController.navigateUp() },
             )

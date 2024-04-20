@@ -17,9 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
 
 
@@ -100,30 +102,18 @@ fun CryptoDetails(
             }
 
             Divider(color = Color(0xFFCECED5))
-            Text(
-                text = "Market data:",
-                modifier = Modifier.padding(all = 5.dp),
-                fontStyle = FontStyle.Italic
-            )
-            //todo add right alignment for values(add 1 more lazy column probably + combine UI into small blocks)
-            Text(
-                text = "Market Cap Rank: #" + crypto.market_cap_rank,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = "Market cap: $" + PriceFormatting.formatCurrentPrice(crypto.market_cap.toDouble()),
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = "Trading Volume: $" + PriceFormatting.formatCurrentPrice(crypto.total_volume.toDouble()),
-                fontWeight = FontWeight.Bold
-            )
+            MarketsData(crypto)
         }
 
     }
     //todo add calculator
+}
+
+@Preview
+@Composable
+fun CryptoDetailsPreview() {
+    CryptoDetails(
+        crypto = sampleCrypto,
+        modifier = Modifier
+    )
 }

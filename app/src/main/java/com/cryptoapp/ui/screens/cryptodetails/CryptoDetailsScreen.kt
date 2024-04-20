@@ -13,19 +13,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.cryptoapp.models.Crypto
+import com.cryptoapp.repositories.CryptoRepository
+import com.cryptoapp.sample.sampleCrypto
+import com.cryptoapp.sample.sampleCryptos
 import com.cryptoapp.ui.screens.cryptodetails.components.CryptoDetails
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CryptoDetailsScreen(
-    countryIndex: Int,
+    cryptoIndex: Int,
     viewModel: CryptoDetailsViewModel,
     onNavigateUp: () -> Unit,
 ) {
     val uiState = viewModel.uiState.collectAsState()
 
-    LaunchedEffect(key1 = "getCountryDetails") {
-        viewModel.getCountryDetails(countryIndex)
+    LaunchedEffect(key1 = "getCryptoDetails") {
+        viewModel.getCryptoDetails(cryptoIndex)
     }
 
     Scaffold(
@@ -59,6 +67,24 @@ fun CryptoDetailsScreen(
             }
             is CryptoDetailsState.Error -> {}
         }
-
     }
+}
+
+@Preview
+@Composable
+fun CryptoDetailsScreenPreview() {
+    CryptoDetailsScreen(
+        cryptoIndex = 0,
+        viewModel = CryptoDetailsViewModel(
+            repository = object : CryptoRepository {
+                override val cryptos: Flow<List<Crypto>>
+                    get() = MutableStateFlow(sampleCryptos).asStateFlow()
+
+                override suspend fun fetchCryptos() {}
+
+                override fun getCrypto(id: Int): Crypto = sampleCrypto
+                                                   },
+        ),
+        onNavigateUp = {},
+    )
 }
