@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ErrorScreen(
-    //userFriendlyMessageText: String,
     error: Throwable,
-    onRetry: (() -> Unit)? = null,
+    onRetry: () -> Unit,
+    onAppClose: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -26,19 +26,8 @@ fun ErrorScreen(
         verticalArrangement = Arrangement.Center,
     ) {
         Log.e("CryptoErrorScreen", "Error: ${error.message}")
-        Text(
-            text = "Error",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-        )
-
-        onRetry?.let {
-            Button(
-                onClick = onRetry,
-                modifier = Modifier.padding(top = 16.dp),
-            ) {
-                Text(text = "button")
-            }
+        ErrorDialog(onRetry = onRetry) {
+            onAppClose()
         }
     }
 }
