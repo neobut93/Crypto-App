@@ -45,12 +45,6 @@ class CryptoSingletonModule {
         return CryptoDatabase.buildDatabase(applicationContext)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideCountryPrefs(@ApplicationContext applicationContext: Context
-//    ): CountryPrefs = CountryPrefsImpl(applicationContext)
-
-
     @Provides
     @Singleton
     fun providesCryptoRepository(

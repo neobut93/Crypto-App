@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.cryptoapp.ui.components.CryptoInfoList
+import com.cryptoapp.ui.components.ErrorScreen
 import com.cryptoapp.ui.components.Loading
 
 @SuppressLint("UnusedCrossfadeTargetStateParameter")
@@ -27,8 +28,6 @@ import com.cryptoapp.ui.components.Loading
 fun CryptoListScreen(
     viewModel: CryptoListViewModel,
     onCryptoRowTap: (countryId: Int) -> Unit,
-    //onAboutTap: () -> Unit,
-    //onSettingsTap: () -> Unit,
 ) {
     val state by viewModel.uiState.collectAsState()
     val refreshState by viewModel.refreshState.collectAsState()
@@ -79,7 +78,11 @@ fun CryptoListScreen(
                     pullRefreshState = pullRefreshState,
                     isRefreshing = refreshState
                 )
-                is CryptoListState.Error -> {}
+                is CryptoListState.Error -> {
+                    ErrorScreen(error = state.error) {
+                        viewModel.fetchCryptos()
+                    }
+                }
             }
         }
     }

@@ -11,6 +11,10 @@ sealed interface Screen {
         override val path = "details"
     }
 
+    data object Welcome : Screen {
+        override val path = "welcome"
+    }
+
 //    data object About : Screen {
 //        override val path = "about"
 //    }

@@ -28,11 +28,13 @@ class CryptoRepositoryImpl(
                 cryptos
 
             } else {
-                throw Throwable("Request failed: ${cryptosResponse.message()}")
+                throw Throwable("Request failed: ${cryptosResponse.errorBody()}")
             }
         } catch (e: Exception) {
             _cryptos.value = emptyList()
-            cryptoDao.getAllCryptos()
+            cryptoDao.getAllCryptos().ifEmpty {
+                throw Exception("Request failed: ${e.message}")
+            }
         }
     }
 
