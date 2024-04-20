@@ -57,43 +57,16 @@ fun CryptoDetails(
         item {
             Spacer(modifier = Modifier.height(8.dp))
             Divider(color = Color(0xFFCECED5))
-
-            Text(
-                text = "24h data:",
-                modifier = Modifier.padding(all = 5.dp),
-                fontStyle = FontStyle.Italic
-            )
         }
 
         item {
-            Row(modifier = Modifier.padding(all = 5.dp), horizontalArrangement = Arrangement.End){
-                Column {
-
-                    Text(
-                        text = "Max price: " + PriceFormatting.formatCurrentPrice(crypto.high_24h) + "$",
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    // todo †otalMarketCap + percentage for cap
-                    Text(
-                        text = "Price change: " + PriceFormatting.formatCurrentPrice(crypto.price_change_24h) + "$",
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        text = "Low price: " + PriceFormatting.formatCurrentPrice(crypto.low_24h) + "$",
-                        fontWeight = FontWeight.Bold
-                    )
-
-                }
-                //todo add handler for landscape mode
+            Row(){
+                HoursData(crypto)
                 PerformanceChart(
                     modifier = Modifier
-                        .width(150.dp)
-                        .height(100.dp)
-                        .padding(start = 20.dp),
+                        .width(230.dp)
+                        .height(120.dp)
+                        .padding(start = 20.dp, bottom = 5.dp, top =10.dp, end = 10.dp),
                     startPrice = crypto.current_price.toFloat() - crypto.price_change_24h.toFloat(),
                     highestPrice = crypto.high_24h.toFloat(),
                     lowestPrice = crypto.low_24h.toFloat(),
