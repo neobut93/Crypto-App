@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.components
+package com.cryptoapp.ui.screens.cryptolist.components
 
 //import com.cryptoapp.sample.sampleCrypto
 import androidx.compose.foundation.background

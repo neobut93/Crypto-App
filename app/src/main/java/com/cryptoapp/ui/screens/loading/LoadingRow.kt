@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.components
+package com.cryptoapp.ui.screens.loading
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

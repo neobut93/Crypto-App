@@ -20,7 +20,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.datastore.PreferencesConstants.WELCOME_KEY
 import com.cryptoapp.datastore.PreferencesManager
-import com.cryptoapp.ui.components.CryptoWelcomePage
 
 @Composable
 fun CryptoWelcomeScreen(

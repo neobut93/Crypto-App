@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.components
+package com.cryptoapp.ui.screens.cryptodetails.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Row

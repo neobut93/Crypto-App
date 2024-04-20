@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.cryptoapp.ui.components.CryptoDetails
+import com.cryptoapp.ui.screens.cryptodetails.components.CryptoDetails
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

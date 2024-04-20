@@ -20,9 +20,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.cryptoapp.ui.components.CryptoInfoList
-import com.cryptoapp.ui.components.ErrorScreen
-import com.cryptoapp.ui.components.Loading
+import com.cryptoapp.ui.screens.cryptolist.components.CryptoInfoList
+import com.cryptoapp.ui.screens.error.ErrorScreen
+import com.cryptoapp.ui.screens.loading.Loading
 
 @SuppressLint("UnusedCrossfadeTargetStateParameter")
 @Composable
