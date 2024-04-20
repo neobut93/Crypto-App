@@ -22,6 +22,7 @@ import com.cryptoapp.utils.PriceFormatting
 fun MarketsData(crypto: Crypto) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier.padding(bottom = 10.dp)
     ) {
         Text(
             text = stringResource(R.string.markets_data),

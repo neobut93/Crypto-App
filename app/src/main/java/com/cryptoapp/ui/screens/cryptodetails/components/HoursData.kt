@@ -22,7 +22,7 @@ import com.cryptoapp.utils.PriceFormatting
 @Composable
 fun HoursData(crypto: Crypto) {
     Column(
-        verticalArrangement = Arrangement.SpaceBetween) {
+        verticalArrangement = Arrangement.SpaceEvenly) {
         Row {
             Text(
                 text = "24h data:",
@@ -30,7 +30,12 @@ fun HoursData(crypto: Crypto) {
                 fontStyle = FontStyle.Italic
             )
         }
-        Row {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = stringResource(R.string.max_price),
                 fontWeight = FontWeight.Bold
@@ -41,7 +46,12 @@ fun HoursData(crypto: Crypto) {
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Row {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = stringResource(R.string.price_change),
                 fontWeight = FontWeight.Bold
@@ -52,7 +62,12 @@ fun HoursData(crypto: Crypto) {
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Row {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = stringResource(R.string.low_price),
                 fontWeight = FontWeight.Bold

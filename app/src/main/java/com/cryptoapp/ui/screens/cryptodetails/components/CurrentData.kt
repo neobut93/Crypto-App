@@ -1,5 +1,6 @@
 package com.cryptoapp.ui.screens.cryptodetails.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -18,25 +19,27 @@ import com.cryptoapp.utils.PriceFormatting
 
 @Composable
 fun CurrentData(crypto: Crypto) {
-    Text(
-        text = stringResource(R.string.current_price),
-        fontStyle = FontStyle.Italic,
-        modifier = Modifier.padding(all = 5.dp)
-    )
-    Row(verticalAlignment = Alignment.Bottom) {
+    Column(modifier = Modifier.padding(bottom = 10.dp)) {
         Text(
-            text = "$${PriceFormatting.formatCurrentPrice(crypto.current_price)}",
-            fontWeight = FontWeight.Bold, fontSize = 45.sp
+            text = stringResource(R.string.current_price),
+            fontStyle = FontStyle.Italic,
+            modifier = Modifier.padding(all = 5.dp)
         )
-        Text(
-            text = "${PriceFormatting.formatPercentageChange(crypto.price_change_percentage_24h)} %",
-            fontWeight = FontWeight.Bold, fontSize = 15.sp,
-            color = if (crypto.price_change_percentage_24h > 0) {
-                Color(0xFF63B960)
-            } else {
-                Color.Red
-            },
-            modifier = Modifier.padding(start = 5.dp)
-        )
+        Row(verticalAlignment = Alignment.Bottom) {
+            Text(
+                text = "$${PriceFormatting.formatCurrentPrice(crypto.current_price)}",
+                fontWeight = FontWeight.Bold, fontSize = 45.sp
+            )
+            Text(
+                text = "${PriceFormatting.formatPercentageChange(crypto.price_change_percentage_24h)} %",
+                fontWeight = FontWeight.Bold, fontSize = 15.sp,
+                color = if (crypto.price_change_percentage_24h > 0) {
+                    Color(0xFF63B960)
+                } else {
+                    Color.Red
+                },
+                modifier = Modifier.padding(start = 5.dp)
+            )
+        }
     }
 }
