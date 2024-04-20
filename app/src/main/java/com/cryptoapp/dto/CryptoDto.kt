@@ -1,16 +1,9 @@
-package com.cryptoapp.models
+package com.cryptoapp.dto
 
-import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-@Entity(tableName = "cryptos")
-data class Crypto(
-    @PrimaryKey
+@JsonClass(generateAdapter = true)
+data class CryptoDto(
     val id: String,
     val symbol: String,
     val image: String,
@@ -23,4 +16,4 @@ data class Crypto(
     val high_24h: Double,
     val low_24h: Double,
     //val total_volume: Long,
-) : Parcelable
+)

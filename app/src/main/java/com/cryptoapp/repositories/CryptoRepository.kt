@@ -8,5 +8,4 @@ interface CryptoRepository {
 
     suspend fun fetchCryptos()
     fun getCrypto(id: Int): Crypto?
-    //suspend fun favorite(crypto: Crypto)
 }

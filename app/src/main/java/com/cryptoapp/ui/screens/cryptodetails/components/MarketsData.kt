@@ -72,7 +72,9 @@ fun MarketsData(crypto: Crypto) {
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "$${PriceFormatting.formatCurrentPrice(crypto.total_volume.toDouble())}",
+                text = "$${PriceFormatting.formatCurrentPrice(crypto.market_cap.toDouble())}",
+
+//                text = "$${PriceFormatting.formatCurrentPrice(crypto.total_volume.toDouble())}",
                 fontWeight = FontWeight.Bold
             )
         }
