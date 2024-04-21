@@ -18,7 +18,11 @@ object DataFormatting {
         return "%.2f".format(price)
     }
 
-    fun formatCalculator(price: Double): String {
+    fun formatBuyOption(price: Double): String {
         return "%.6f".format(price)
+    }
+
+    fun formatSellOption(price: Double): String {
+        return "%,.5f".format(price)
     }
 }

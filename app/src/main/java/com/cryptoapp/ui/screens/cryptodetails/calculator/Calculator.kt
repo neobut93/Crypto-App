@@ -13,7 +13,8 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.MonetizationOn
+import androidx.compose.material.icons.filled.Sell
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -29,15 +30,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
-import com.cryptoapp.utils.DataFormatting.formatCalculator
+import com.cryptoapp.utils.DataFormatting.formatBuyOption
+import com.cryptoapp.utils.DataFormatting.formatSellOption
 import java.util.Locale
 
 @Composable
@@ -46,7 +46,7 @@ fun CalculatorField(crypto: Crypto) {
     var inputValue by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("0") }
     val focusManager = LocalFocusManager.current
-    var isToggle by rememberSaveable { mutableStateOf(false) }
+    var toggle by rememberSaveable { mutableStateOf(false) }
     val imeAction = if (inputValue != "") {
         ImeAction.Done
     } else {
@@ -66,12 +66,15 @@ fun CalculatorField(crypto: Crypto) {
         modifier = Modifier
             .padding(start = 2.dp, end = 6.dp)
     ) {
+
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = "Buy", fontSize = 30.sp)
             Switch(
-                checked = isToggle,
+                checked = toggle,
                 onCheckedChange = {
-                    isToggle = it
+                    toggle = it
+                    result = "0"
+                    inputValue = ""
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = MaterialTheme.colorScheme.secondary,
@@ -81,7 +84,7 @@ fun CalculatorField(crypto: Crypto) {
                 ),
                 thumbContent = {
                     Icon(
-                        imageVector = if (isToggle) Icons.Filled.Sell else Icons.Filled.MonetizationOn,
+                        imageVector = if (toggle) Icons.Filled.Sell else Icons.Filled.MonetizationOn,
                         contentDescription = null,
                         modifier = Modifier.size(SwitchDefaults.IconSize)
                     )
@@ -90,14 +93,6 @@ fun CalculatorField(crypto: Crypto) {
             )
             Text(text = "Sell", fontSize = 30.sp)
         }
-
-
-
-
-
-
-
-
         TextField(
             value = inputValue,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -106,21 +101,34 @@ fun CalculatorField(crypto: Crypto) {
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    result = formatCalculator(inputValue.toDouble() / crypto.current_price)
+                    result = if (!toggle) {
+                        formatBuyOption(inputValue.toDouble() / crypto.current_price)
+                    } else {
+                        formatSellOption(crypto.current_price*inputValue.toDouble())
+                    }
                     keyboardController?.hide()
                 }),
             onValueChange = { inputValue = it },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            label = { Text(text = "Enter amount in $") },
+            label = {
+                if (!toggle) {
+                    Text(text = "Enter amount in $")
+                } else {
+                    Text(text = "Enter ${crypto.symbol.uppercase(Locale.ROOT)} amount")
+                }
+            },
             singleLine = true
         )
-
         Row {
             Button(
                 onClick = {
-                    result = formatCalculator(inputValue.toDouble() / crypto.current_price)
+                    result = if (!toggle) {
+                        formatBuyOption(inputValue.toDouble() / crypto.current_price)
+                    } else {
+                        formatSellOption(crypto.current_price*inputValue.toDouble())
+                    }
                 },
                 enabled = inputValue != "",
                 modifier = Modifier.size(width = 120.dp, height = 40.dp),
@@ -146,7 +154,12 @@ fun CalculatorField(crypto: Crypto) {
             }
         }
         Spacer(modifier = Modifier.size(15.dp))
-        Text(text = "Amount of ${crypto.symbol.uppercase(Locale.ROOT)}")
+        if(!toggle) {
+            Text(text = "Amount of ${crypto.symbol.uppercase(Locale.ROOT)}")
+        } else {
+            Text(text = "Amount in $")
+        }
         Text(text = "$result ", fontSize = 40.sp)
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
