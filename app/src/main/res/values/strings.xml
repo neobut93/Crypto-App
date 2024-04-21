@@ -11,4 +11,5 @@
     <string name="cryptoicon">cryptoIcon</string>
     <string name="browse_icon">browse_icon</string>
     <string name="share_icon">share_icon</string>
+    <string name="calculate_the_price">Calculate the price</string>
 </resources>
