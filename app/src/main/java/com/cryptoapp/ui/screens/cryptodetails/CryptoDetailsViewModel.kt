@@ -100,10 +100,10 @@ class CryptoDetailsViewModel
         val num2 = state.number2.toDoubleOrNull()
         if (num1 != null && num2 != null && state.operation != null) {
             when (state.operation) {
-                //CalculatorOperation.Add -> num1 += num2
+                CalculatorOperation.Add -> num1 += num2
                 CalculatorOperation.Divide -> num1 /= num2
-                //CalculatorOperation.Multiply -> num1 *= num2
-                //CalculatorOperation.Subtract -> num1 -= num2
+                CalculatorOperation.Multiply -> num1 *= num2
+                CalculatorOperation.Subtract -> num1 -= num2
                 null -> num1 = 0.0
             }
         }
