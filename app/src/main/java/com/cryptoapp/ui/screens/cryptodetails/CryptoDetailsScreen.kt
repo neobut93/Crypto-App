@@ -48,6 +48,7 @@ fun CryptoDetailsScreen(
 ) {
     val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
+    val state = viewModel.state
 
     LaunchedEffect(key1 = "getCryptoDetails") {
         viewModel.getCryptoDetails(cryptoIndex)
@@ -129,6 +130,8 @@ fun CryptoDetailsScreen(
                 CryptoDetails(
                     crypto = crypto,
                     modifier = Modifier.padding(padding),
+                    state = state,
+                    onAction = viewModel::onAction
                 )
             }
 
