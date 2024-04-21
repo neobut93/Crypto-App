@@ -12,8 +12,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Calculator(value: String, onInputChanged: (String) -> Unit) {
-
+fun InputField(value: String, onInputChanged: (String) -> Unit) {
     Column {
         TextField(value = value,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -21,7 +20,6 @@ fun Calculator(value: String, onInputChanged: (String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            label = { Text(text = "Enter here")})
+            label = { Text(text = "Enter amount in $")})
     }
-
 }

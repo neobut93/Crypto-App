@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.sample.sampleCrypto
-import com.cryptoapp.ui.screens.cryptodetails.calculator.Calculator
+import com.cryptoapp.ui.screens.cryptodetails.calculator.InputField
 import com.cryptoapp.ui.theme.CryptoAppTheme
 
 
@@ -30,7 +30,6 @@ fun CryptoDetails(
     crypto: Crypto,
     modifier: Modifier,
 ) {
-
     var inputValue by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("0") }
 
@@ -67,17 +66,13 @@ fun CryptoDetails(
         }
 
         item {
-            Calculator(value = inputValue, onInputChanged = { inputValue = it })
-
-
-            //${inputValue.toDouble()/crypto.current_price}
-            Button(onClick = { result = "${inputValue.toDouble()/crypto.current_price}" }) {
-                Text(text = "Calculate")
-            }
-
+            Column {
+                InputField(value = inputValue, onInputChanged = { inputValue = it })
+                Button(onClick = { result = "${inputValue.toDouble() / crypto.current_price}" }) {
+                    Text(text = "Calculate")
+                }
                 Text(text = result)
-
-
+            }
         }
     }
 
