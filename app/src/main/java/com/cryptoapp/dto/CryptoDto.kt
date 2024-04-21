@@ -15,5 +15,5 @@ data class CryptoDto(
     val market_cap_rank: Int,
     val high_24h: Double,
     val low_24h: Double,
-    //val total_volume: Long,
+    val total_volume: Long,
 )

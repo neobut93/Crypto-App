@@ -13,7 +13,7 @@ annotation class WrappedCryptoList
 class CryptoAdapter {
     @WrappedCryptoList
     @FromJson
-    fun fromJson(cryptoDtoList: List<CryptoDto>) : List<Crypto> = cryptoDtoList.map { cryptoDto ->
+    fun fromJson(cryptoDtoList: List<CryptoDto>): List<Crypto> = cryptoDtoList.map { cryptoDto ->
         Crypto(
             id = cryptoDto.id,
             symbol = cryptoDto.symbol,
@@ -26,25 +26,26 @@ class CryptoAdapter {
             market_cap_rank = cryptoDto.market_cap_rank,
             high_24h = cryptoDto.high_24h,
             low_24h = cryptoDto.low_24h,
-            //total_volume = 26897980179,
+            total_volume = cryptoDto.total_volume
         )
     }
 
     @ToJson
-    fun toJson(@WrappedCryptoList cryptoList: List<Crypto>): List<CryptoDto> = cryptoList.map { crypto ->
-        CryptoDto(
-            id = crypto.id,
-            symbol = crypto.symbol,
-            image = crypto.image,
-            current_price = crypto.current_price,
-            price_change_24h = crypto.price_change_24h,
-            price_change_percentage_24h = crypto.price_change_percentage_24h,
-            market_cap_change_percentage_24h = crypto.market_cap_change_percentage_24h,
-            market_cap = crypto.market_cap,
-            market_cap_rank = crypto.market_cap_rank,
-            high_24h = crypto.high_24h,
-            low_24h = crypto.low_24h,
-            //total_volume = 26897980179,
-        )
-    }
+    fun toJson(@WrappedCryptoList cryptoList: List<Crypto>): List<CryptoDto> =
+        cryptoList.map { crypto ->
+            CryptoDto(
+                id = crypto.id,
+                symbol = crypto.symbol,
+                image = crypto.image,
+                current_price = crypto.current_price,
+                price_change_24h = crypto.price_change_24h,
+                price_change_percentage_24h = crypto.price_change_percentage_24h,
+                market_cap_change_percentage_24h = crypto.market_cap_change_percentage_24h,
+                market_cap = crypto.market_cap,
+                market_cap_rank = crypto.market_cap_rank,
+                high_24h = crypto.high_24h,
+                low_24h = crypto.low_24h,
+                total_volume = crypto.total_volume,
+            )
+        }
 }
