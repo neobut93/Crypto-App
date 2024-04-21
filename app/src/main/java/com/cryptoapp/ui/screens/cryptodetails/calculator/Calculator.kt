@@ -1,7 +1,5 @@
 package com.cryptoapp.ui.screens.cryptodetails.calculator
 
-import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -23,11 +20,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.models.Crypto
@@ -39,6 +35,8 @@ fun CalculatorField(crypto: Crypto) {
     val keyboardController = LocalSoftwareKeyboardController.current
     var inputValue by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("0") }
+    val focusManager = LocalFocusManager.current
+
 
     val imeAction = if (inputValue != "") {
         ImeAction.Done
@@ -86,6 +84,7 @@ fun CalculatorField(crypto: Crypto) {
             Button(onClick = {
                 result = "0"
                 inputValue = ""
+                focusManager.clearFocus()
             },
                 enabled = inputValue != "",
                 modifier = Modifier.size(width = 120.dp, height = 40.dp),
