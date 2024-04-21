@@ -9,4 +9,6 @@
     <string name="low_price">"Low price: "</string>
     <string name="current_price">Current price</string>
     <string name="cryptoicon">cryptoIcon</string>
+    <string name="browse_icon">browse_icon</string>
+    <string name="share_icon">share_icon</string>
 </resources>
