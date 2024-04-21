@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.components
+package com.cryptoapp.ui.screens.cryptolist.components
 
 //import com.cryptoapp.sample.sampleCrypto
 import androidx.compose.foundation.background
@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.utils.PriceFormatting
 import java.util.Locale
@@ -58,7 +60,7 @@ fun CryptoInfoRow(
                     .data(crypto.image)
                     .crossfade(true)
                     .build(),
-                contentDescription = "Flag",
+                contentDescription = stringResource(R.string.cryptoicon),
                 modifier = Modifier
                     .width(30.dp)
                     .weight(0.2f)

@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.components
+package com.cryptoapp.ui.screens.error
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

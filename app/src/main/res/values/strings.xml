@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CryptoApp</string>
+    <string name="market_cap_change">Market Cap Change:</string>
+    <string name="market_cap">Market Cap:</string>
+    <string name="market_cap_rank">Market Cap Rank:</string>
+    <string name="markets_data">Markets data:</string>
+    <string name="max_price">"Max price: "</string>
+    <string name="price_change">"Price change: "</string>
+    <string name="low_price">"Low price: "</string>
+    <string name="current_price">Current price</string>
+    <string name="cryptoicon">cryptoIcon</string>
 </resources>

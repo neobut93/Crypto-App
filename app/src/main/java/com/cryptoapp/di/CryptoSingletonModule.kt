@@ -1,6 +1,7 @@
 package com.cryptoapp.di
 
 import android.content.Context
+import com.cryptoapp.adapters.CryptoAdapter
 import com.cryptoapp.network.CryptoService
 import com.cryptoapp.network.MyInterceptor
 import com.cryptoapp.repositories.CryptoRepository
@@ -24,7 +25,7 @@ class CryptoSingletonModule {
     @Singleton
     fun provideCryptoService(): CryptoService {
         val moshi = Moshi.Builder()
-            //.add(CountryAdapter())
+            .add(CryptoAdapter())
             .build()
 
         val client = OkHttpClient.Builder().apply {

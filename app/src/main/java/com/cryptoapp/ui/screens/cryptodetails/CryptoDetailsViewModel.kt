@@ -17,13 +17,13 @@ class CryptoDetailsViewModel
 
     val uiState: StateFlow<CryptoDetailsState> = _uiState
 
-    fun getCountryDetails(cryptoId: Int) {
+    fun getCryptoDetails(cryptoId: Int) {
         viewModelScope.launch {
             _uiState.value = CryptoDetailsState.Loading
 
             _uiState.value = repository.getCrypto(cryptoId)?.let { crypto ->
                 CryptoDetailsState.Success(crypto)
-            } ?: CryptoDetailsState.Error(Exception("Country not found"))
+            } ?: CryptoDetailsState.Error(Exception("Crypto not found"))
         }
     }
 }
