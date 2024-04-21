@@ -68,11 +68,11 @@ fun MarketsData(crypto: Crypto) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = stringResource(R.string.trading_volume),
+                text = stringResource(R.string.market_cap_change),
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "$${PriceFormatting.formatCurrentPrice(crypto.total_volume.toDouble())}",
+                text = "${PriceFormatting.formatPercentageChange(crypto.market_cap_change_percentage_24h)}%",
                 fontWeight = FontWeight.Bold
             )
         }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CryptoApp</string>
-    <string name="trading_volume">Trading Volume:</string>
-    <string name="market_cap">Market cap:</string>
+    <string name="market_cap_change">Market Cap Change:</string>
+    <string name="market_cap">Market Cap:</string>
     <string name="market_cap_rank">Market Cap Rank:</string>
     <string name="markets_data">Markets data:</string>
     <string name="max_price">"Max price: "</string>

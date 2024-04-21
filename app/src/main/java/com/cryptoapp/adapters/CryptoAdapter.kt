@@ -26,7 +26,6 @@ class CryptoAdapter {
             market_cap_rank = cryptoDto.market_cap_rank,
             high_24h = cryptoDto.high_24h,
             low_24h = cryptoDto.low_24h,
-            total_volume = cryptoDto.total_volume
         )
     }
 
@@ -45,7 +44,6 @@ class CryptoAdapter {
                 market_cap_rank = crypto.market_cap_rank,
                 high_24h = crypto.high_24h,
                 low_24h = crypto.low_24h,
-                total_volume = crypto.total_volume,
             )
         }
 }

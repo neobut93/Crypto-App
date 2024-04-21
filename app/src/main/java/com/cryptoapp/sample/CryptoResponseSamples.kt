@@ -15,7 +15,6 @@ val sampleCryptos = listOf(
         market_cap_rank = 1,
         high_24h = 65514.00,
         low_24h = 62138.00,
-        total_volume = 214215421512351,
     ),
     Crypto(
         id = "ethereum",
@@ -29,7 +28,6 @@ val sampleCryptos = listOf(
         market_cap_rank = 2,
         high_24h = 3165.94,
         low_24h = 2914.61,
-        total_volume = 1,
     ),
     Crypto(
         id = "solana",
@@ -43,7 +41,6 @@ val sampleCryptos = listOf(
         market_cap_rank = 3,
         high_24h = 150.54,
         low_24h = 131.57,
-        total_volume = 12142142154,
     )
 )
 
@@ -59,5 +56,4 @@ val sampleCrypto = Crypto(
     market_cap_rank = 1,
     high_24h = 65514.00,
     low_24h = 62138.00,
-    total_volume = 12153125235,
 )
