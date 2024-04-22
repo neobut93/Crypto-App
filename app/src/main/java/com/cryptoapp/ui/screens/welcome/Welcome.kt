@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.R
 
@@ -26,18 +27,25 @@ fun CryptoWelcomePage() {
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )
-        //Spacer(modifier = Modifier.height(MediumPadding1))
-        Text(
-            modifier = Modifier.padding(horizontal = 5.dp),
-            text = "Crypto App",
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-            //color = colorResource(id = R.color.display_small)
-        )
-        Text(
-            modifier = Modifier.padding(horizontal = 5.dp),
-            text = "That’s not to say it’s gone without incident. In 2012, the price of Bitcoin dropped about 90 percent, and then dropped 80 percent in 2015 and 2019. We appear to be hurtling toward another recession now, and the cryptocurrency market appears to be following suit. But it’s important to remember, all markets have bull and bear cycles. Just because crypto is down right now, does not mean it’s out.",
-            style = MaterialTheme.typography.bodyMedium,
-            //color = colorResource(id = R.color.text_medium)
-        )
+        Column(modifier = Modifier
+            .padding(15.dp)) {
+            Text(
+                text = "Crypto App",
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+            Text(
+                text = "That’s not to say it’s gone without incident. In 2012, the price of Bitcoin dropped about 90 percent, and then dropped 80 percent in 2015 and 2019. We appear to be hurtling toward another recession now, and the cryptocurrency market appears to be following suit. But it’s important to remember, all markets have bull and bear cycles. Just because crypto is down right now, does not mean it’s out.",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 8.dp),
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+        }
     }
+}
+
+@Preview
+@Composable
+fun CryptoWelcomePagePreview() {
+    CryptoWelcomePage()
 }

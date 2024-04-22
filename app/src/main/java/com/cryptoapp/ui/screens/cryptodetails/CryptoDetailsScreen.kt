@@ -1,12 +1,14 @@
 package com.cryptoapp.ui.screens.cryptodetails
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,6 +33,7 @@ import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.sample.sampleCryptos
 import com.cryptoapp.ui.screens.cryptodetails.components.CryptoDetails
+import com.cryptoapp.utils.UrlRedirect.COINGECKO_URL
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,6 +46,7 @@ fun CryptoDetailsScreen(
     viewModel: CryptoDetailsViewModel,
     onNavigateUp: () -> Unit,
 ) {
+    val context = LocalContext.current
     val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = "getCryptoDetails") {
@@ -54,8 +59,11 @@ fun CryptoDetailsScreen(
                 title = {
                     Row {
                         (uiState.value as? CryptoDetailsState.Success)?.crypto?.symbol?.let {
-                            Text(text = it.toUpperCase(
-                                Locale.ROOT), fontWeight = FontWeight.Bold)
+                            Text(
+                                text = it.toUpperCase(
+                                    Locale.ROOT
+                                ), fontWeight = FontWeight.Bold
+                            )
                         }
                         Spacer(modifier = Modifier.size(8.dp))
                         AsyncImage(
@@ -79,6 +87,35 @@ fun CryptoDetailsScreen(
                             contentDescription = "",
                         )
                     }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        Intent(Intent.ACTION_VIEW).also {
+                            it.data = Uri.parse(COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id)
+                            if (it.resolveActivity(context.packageManager) != null) {
+                                context.startActivity(it)
+                            }
+                        }
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_network),
+                            contentDescription = stringResource(R.string.browse_icon)
+                        )
+                    }
+                    IconButton(onClick = {
+                        Intent(Intent.ACTION_SEND).also {
+                            it.putExtra(Intent.EXTRA_TEXT, COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id)
+                            it.type = "text/plain"
+                            if (it.resolveActivity(context.packageManager) != null) {
+                                context.startActivity(it)
+                            }
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = stringResource(R.string.share_icon)
+                        )
+                    }
                 }
             )
         },
@@ -86,6 +123,7 @@ fun CryptoDetailsScreen(
         when (val countryDetailsState = uiState.value) {
             is CryptoDetailsState.Loading -> {
             }
+
             is CryptoDetailsState.Success -> {
                 val crypto = countryDetailsState.crypto
                 CryptoDetails(
@@ -93,6 +131,7 @@ fun CryptoDetailsScreen(
                     modifier = Modifier.padding(padding),
                 )
             }
+
             is CryptoDetailsState.Error -> {}
         }
     }
@@ -111,8 +150,7 @@ fun CryptoDetailsScreenPreview() {
                 override suspend fun fetchCryptos() {}
 
                 override fun getCrypto(id: Int): Crypto = sampleCrypto
-                                                   },
+            },
         ),
-        onNavigateUp = {},
-    )
+        onNavigateUp = {})
 }

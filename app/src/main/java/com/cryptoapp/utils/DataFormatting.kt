@@ -17,4 +17,12 @@ object DataFormatting {
     fun formatToPercentage(price: Double): String {
         return "%.2f".format(price)
     }
+
+    fun formatBuyOption(price: Double): String {
+        return "%.2f".format(price)
+    }
+
+    fun formatSellOption(price: Double): String {
+        return "%,.3f".format(price)
+    }
 }

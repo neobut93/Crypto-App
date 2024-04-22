@@ -49,13 +49,13 @@ fun CryptoNavHost(
         }
         composable(
             route = "${Screen.Details.path}/{cryptoId}",
-            arguments = listOf(navArgument("cryptoId") { type = NavType.IntType }),
+            arguments = listOf(navArgument("cryptoId") { type = NavType.IntType })
         ) { backStackEntry ->
             val countryIndex = backStackEntry.arguments!!.getInt("cryptoId")
             CryptoDetailsScreen(
                 cryptoIndex = countryIndex,
                 viewModel = hiltViewModel(),
-                onNavigateUp = { navController.navigateUp() },
+                onNavigateUp = { navController.navigateUp() }
             )
         }
     }
