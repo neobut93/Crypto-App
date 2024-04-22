@@ -88,6 +88,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
+
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.prefs)
