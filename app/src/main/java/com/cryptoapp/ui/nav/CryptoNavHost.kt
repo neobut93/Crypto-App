@@ -36,6 +36,7 @@ fun CryptoNavHost(
     ) {
         composable(Screen.Welcome.path) {
             CryptoWelcomeScreen {
+                navController.popBackStack()
                 navController.navigate(Screen.List.path)
             }
         }

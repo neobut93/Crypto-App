@@ -37,11 +37,11 @@ fun CryptoWelcomeScreen(
         .background(MaterialTheme.colorScheme.background)
     ) {
         CryptoWelcomePage()
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(end = 15.dp),
+                .padding(end = 5.dp),
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -52,10 +52,11 @@ fun CryptoWelcomeScreen(
                 },
                 shape = RoundedCornerShape(size = 6.dp),
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                    contentColor = MaterialTheme.colorScheme.inversePrimary
+                ),
+                modifier = Modifier.padding(end = 10.dp)
             ) {
-                Text(text = "Click me")
+                Text(text = "Continue")
             }
         }
     }
