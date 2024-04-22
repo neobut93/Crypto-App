@@ -32,13 +32,13 @@ fun CryptoWelcomePage() {
             Text(
                 text = "Crypto App",
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
-                color = MaterialTheme.colorScheme.onSecondary
+                color = MaterialTheme.colorScheme.onPrimary
             )
             Text(
-                text = "That’s not to say it’s gone without incident. In 2012, the price of Bitcoin dropped about 90 percent, and then dropped 80 percent in 2015 and 2019. We appear to be hurtling toward another recession now, and the cryptocurrency market appears to be following suit. But it’s important to remember, all markets have bull and bear cycles. Just because crypto is down right now, does not mean it’s out.",
-                style = MaterialTheme.typography.bodyMedium,
+                text = "This is a crypto app which is used to get latest information about crypto currency market. This app is using coingecko API to fetch latest crypto information. The app is showing top 100 crypto currencies on the market. The prices are present in USD",
+                style = MaterialTheme.typography.displayMedium,
                 modifier = Modifier.padding(top = 8.dp),
-                color = MaterialTheme.colorScheme.onSecondary
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
