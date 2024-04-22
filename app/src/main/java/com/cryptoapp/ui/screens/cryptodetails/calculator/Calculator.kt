@@ -30,7 +30,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontStyle
@@ -72,8 +71,10 @@ fun CalculatorField(crypto: Crypto) {
             .padding(start = 2.dp, end = 6.dp)
     ) {
 
-        Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(end = 5.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(end = 5.dp)
+        ) {
             Text(text = "Buy", fontSize = 30.sp)
             Switch(
                 checked = toggle,
@@ -143,7 +144,10 @@ fun CalculatorField(crypto: Crypto) {
                 shape = RoundedCornerShape(50)
 
             ) {
-                Text(text = "Calculate")
+                Text(
+                    text = "Calculate",
+                    color = MaterialTheme.colorScheme.scrim
+                )
             }
 
             Spacer(modifier = Modifier.width(10.dp))
@@ -158,7 +162,9 @@ fun CalculatorField(crypto: Crypto) {
                 shape = RoundedCornerShape(50)
 
             ) {
-                Text(text = "Clear")
+                Text(
+                    text = "Clear", color = MaterialTheme.colorScheme.scrim
+                )
             }
         }
         Spacer(modifier = Modifier.size(15.dp))
@@ -177,7 +183,7 @@ fun CalculatorField(crypto: Crypto) {
             AutoResizedText(
                 text = "$result ",
                 style = androidx.compose.material.MaterialTheme.typography.h1,
-                color = MaterialTheme.colorScheme.tertiary
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
