@@ -19,10 +19,10 @@ object DataFormatting {
     }
 
     fun formatBuyOption(price: Double): String {
-        return "%.6f".format(price)
+        return "%.2f".format(price)
     }
 
     fun formatSellOption(price: Double): String {
-        return "%,.5f".format(price)
+        return "%,.3f".format(price)
     }
 }

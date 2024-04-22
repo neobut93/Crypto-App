@@ -1,5 +1,7 @@
 package com.cryptoapp.ui.screens.cryptodetails.calculator
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontStyle
@@ -36,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.utils.AutoResizedText
 import com.cryptoapp.utils.DataFormatting.formatBuyOption
 import com.cryptoapp.utils.DataFormatting.formatSellOption
 import java.util.Locale
@@ -47,6 +51,7 @@ fun CalculatorField(crypto: Crypto) {
     var result by rememberSaveable { mutableStateOf("0") }
     val focusManager = LocalFocusManager.current
     var toggle by rememberSaveable { mutableStateOf(false) }
+    val limitAmountOfDigits = 6
     val imeAction = if (inputValue != "") {
         ImeAction.Done
     } else {
@@ -67,7 +72,8 @@ fun CalculatorField(crypto: Crypto) {
             .padding(start = 2.dp, end = 6.dp)
     ) {
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(end = 5.dp)) {
             Text(text = "Buy", fontSize = 30.sp)
             Switch(
                 checked = toggle,
@@ -104,11 +110,13 @@ fun CalculatorField(crypto: Crypto) {
                     result = if (!toggle) {
                         formatBuyOption(inputValue.toDouble() / crypto.current_price)
                     } else {
-                        formatSellOption(crypto.current_price*inputValue.toDouble())
+                        formatSellOption(crypto.current_price * inputValue.toDouble())
                     }
                     keyboardController?.hide()
                 }),
-            onValueChange = { inputValue = it },
+            onValueChange = {
+                if (it.length <= limitAmountOfDigits) inputValue = it
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
@@ -127,7 +135,7 @@ fun CalculatorField(crypto: Crypto) {
                     result = if (!toggle) {
                         formatBuyOption(inputValue.toDouble() / crypto.current_price)
                     } else {
-                        formatSellOption(crypto.current_price*inputValue.toDouble())
+                        formatSellOption(crypto.current_price * inputValue.toDouble())
                     }
                 },
                 enabled = inputValue != "",
@@ -154,12 +162,24 @@ fun CalculatorField(crypto: Crypto) {
             }
         }
         Spacer(modifier = Modifier.size(15.dp))
-        if(!toggle) {
+        if (!toggle) {
             Text(text = "Amount of ${crypto.symbol.uppercase(Locale.ROOT)}")
         } else {
             Text(text = "Amount in $")
         }
-        Text(text = "$result ", fontSize = 40.sp)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(start = 15.dp)
+        ) {
+            AutoResizedText(
+                text = "$result ",
+                style = androidx.compose.material.MaterialTheme.typography.h1,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        }
         Spacer(modifier = Modifier.height(10.dp))
     }
 }
