@@ -1,30 +1,30 @@
-package com.cryptoapp
+package com.cryptoapp.ui.screens.cryptolist
 
-import android.util.Log
-import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsViewModel
+import com.cryptoapp.models.Crypto
+import com.cryptoapp.repositories.CryptoRepository
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class CryptoDetailsViewModelTest {
-
-    lateinit var viewModel: CryptoDetailsViewModel
+class CryptoListViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
         Dispatchers.setMain(mainThreadSurrogate)
-        viewModel = CryptoDetailsViewModel(MockRepository())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -35,7 +35,18 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `test for error`() {
-        viewModel.getCryptoDetails(1)
+    fun testCase1() {
+        // Arrange
+        val mockRepo = mockk<CryptoRepository>(relaxed = true)
+        val expectedCrypto = runBlocking {
+            mockRepo.fetchCryptos()
+        }
+        val sut = CryptoListViewModel(mockRepo)
+
+        // Act
+        val result = sut.fetchCryptos()
+
+        //Assert
+        assertEquals(expectedCrypto, result)
     }
 }
