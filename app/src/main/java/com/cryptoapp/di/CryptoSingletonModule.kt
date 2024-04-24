@@ -6,7 +6,7 @@ import com.cryptoapp.network.CryptoService
 import com.cryptoapp.network.MyInterceptor
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.repositories.CryptoRepositoryImpl
-import com.kodeco.android.countryinfo.database.CryptoDatabase
+import com.cryptoapp.database.CryptoDatabase
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

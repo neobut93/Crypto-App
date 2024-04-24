@@ -25,6 +25,7 @@ hilt="2.48"
 hilt-nav="1.1.0-rc01"
 prefs="1.0.0"
 splash="1.0.1"
+mockk = "1.13.9"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -82,6 +83,9 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 
 # Preferences
 prefs = {module = "androidx.datastore:datastore-preferences", version.ref = "prefs" }
+
+# mockk
+mockk = { group = "io.mockk", name = "mockk-jvm", version.ref = "mockk"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
