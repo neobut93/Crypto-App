@@ -1,8 +1,6 @@
 package com.cryptoapp.ui.screens.cryptolist
 
-import com.cryptoapp.models.Crypto
 import com.cryptoapp.repositories.CryptoRepository
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -36,17 +34,12 @@ class CryptoListViewModelTest {
 
     @Test
     fun testCase1() {
-        // Arrange
         val mockRepo = mockk<CryptoRepository>(relaxed = true)
         val expectedCrypto = runBlocking {
             mockRepo.fetchCryptos()
         }
         val sut = CryptoListViewModel(mockRepo)
-
-        // Act
         val result = sut.fetchCryptos()
-
-        //Assert
         assertEquals(expectedCrypto, result)
     }
 }

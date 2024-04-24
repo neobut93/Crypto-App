@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.screens.cryptolist.cryptodetails
+package com.cryptoapp.ui.screens.cryptodetails
 
 import app.cash.turbine.test
 import com.cryptoapp.repositories.CryptoRepository
@@ -23,7 +23,7 @@ class CryptoDetailsViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
+    private val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -40,7 +40,6 @@ class CryptoDetailsViewModelTest {
 
     @Test
     fun `loading state return loading`() = runBlocking {
-        val mockCryptoRepository = mockk<CryptoRepository>()
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
         sut.uiState.test {
@@ -49,10 +48,9 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `success state return success`() = runBlocking {
+    fun `success state returns success`() = runBlocking {
         val cryptoId = 1
         val crypto = sampleCrypto
-        val mockCryptoRepository = mockk<CryptoRepository>()
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
         every { mockCryptoRepository.getCrypto(cryptoId) } returns crypto
@@ -65,9 +63,8 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `error state return error`() = runBlocking {
+    fun `error state returns error`() = runBlocking {
         val cryptoId = 1
-        val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
         every { mockCryptoRepository.getCrypto(cryptoId) } returns null

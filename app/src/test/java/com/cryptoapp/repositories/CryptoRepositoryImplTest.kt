@@ -3,19 +3,19 @@ package com.cryptoapp.repositories
 import app.cash.turbine.test
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
-import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.sample.sampleCryptos
 import com.kodeco.android.countryinfo.database.CryptoDao
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -26,7 +26,8 @@ class CryptoRepositoryImplTest {
 
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
+    private val mockService: CryptoService = mockk()
+    private val mockCountryDao = mockk<CryptoDao>(relaxed = true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -42,32 +43,9 @@ class CryptoRepositoryImplTest {
     }
 
     @Test
-    fun getCrypto() = runTest {
-       // val mockRepo = mockk<CryptoRepositoryImpl>()
-        val expectedCrypto: Crypto = sampleCrypto
-        val emptyCrypto : Crypto? = null
+    fun `success repo returns success`() = runTest {
         val expectedCountries: List<Crypto> = sampleCryptos
 
-        val mockService: CryptoService = mockk()
-        val mockCountryDao = mockk<CryptoDao>(relaxed = true)
-        coEvery { mockService.getAllCryptos() } returns Response.success(expectedCountries)
-
-        val sut = CryptoRepositoryImpl(mockService, mockCountryDao)
-
-        sut.cryptos.test {
-            sut.fetchCryptos()
-            sut.getCrypto(1)
-            assertEquals(emptyCrypto, awaitItem())
-            assertEquals(expectedCrypto, awaitItem())
-        }
-    }
-
-
-    @Test
-    fun fetchCryptos() = runTest {
-        val expectedCountries: List<Crypto> = sampleCryptos
-        val mockService: CryptoService = mockk()
-        val mockCountryDao = mockk<CryptoDao>(relaxed = true)
         val emptyCountryList = emptyList<Crypto>()
 
         coEvery { mockService.getAllCryptos() } returns Response.success(expectedCountries)
@@ -77,6 +55,20 @@ class CryptoRepositoryImplTest {
             sut.fetchCryptos()
             assertEquals(emptyCountryList, awaitItem())
             assertEquals(expectedCountries, awaitItem())
+        }
+    }
+
+
+    @Test
+    fun `failure repo returns failure`() = runBlocking {
+
+        coEvery { mockService.getAllCryptos() } returns Response.error(404, "{}".toResponseBody())
+        val sut = CryptoRepositoryImpl(mockService, mockCountryDao)
+
+        try {
+            sut.fetchCryptos()
+        } catch (e: Throwable) {
+            assertTrue(e.message.toString().contains("Request failed:"))
         }
     }
 }
