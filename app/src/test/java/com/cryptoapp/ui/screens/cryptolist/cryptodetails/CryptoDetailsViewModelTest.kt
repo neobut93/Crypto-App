@@ -1,20 +1,18 @@
 package com.cryptoapp.ui.screens.cryptolist.cryptodetails
 
-import com.cryptoapp.MockRepository
 import com.cryptoapp.repositories.CryptoRepository
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsViewModel
-import com.cryptoapp.ui.screens.cryptolist.CryptoListViewModel
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -39,16 +37,13 @@ class CryptoDetailsViewModelTest {
 
     @Test
     fun testCase1() {
-        // Arrange
-        val mockRepo = mockk<CryptoRepository>(relaxed = true)
-        val expectedCrypto = mockRepo.getCrypto(1)
-        val sut = CryptoDetailsViewModel(mockRepo)
-        every { mockRepo.getCrypto(1) } returns expectedCrypto
+        val mockCryptoRepository = mockk<CryptoRepository>()
+        val expectedCrypto = sampleCrypto
 
-        // Act
-        val result = sut.getCryptoDetails(1)
+        every { mockCryptoRepository.getCrypto(1) } returns expectedCrypto
 
-        //Assert
-        Assert.assertEquals(expectedCrypto, result)
+        val sut = CryptoDetailsViewModel(mockCryptoRepository)
+
+        assertEquals(sut.getCryptoDetails(1), expectedCrypto)
     }
 }
