@@ -43,7 +43,7 @@ class CryptoRepositoryImplTest {
     }
 
     @Test
-    fun `success repo returns success`() = runTest {
+    fun `crypto repository returns success`() = runTest {
         val expectedCountries: List<Crypto> = sampleCryptos
 
         val emptyCountryList = emptyList<Crypto>()
@@ -60,7 +60,7 @@ class CryptoRepositoryImplTest {
 
 
     @Test
-    fun `failure repo returns failure`() = runBlocking {
+    fun `crypto repository returns failure`() = runBlocking {
 
         coEvery { mockService.getAllCryptos() } returns Response.error(404, "{}".toResponseBody())
         val sut = CryptoRepositoryImpl(mockService, mockCountryDao)

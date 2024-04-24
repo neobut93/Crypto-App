@@ -36,7 +36,7 @@ class CryptoAdapterTest {
     )
 
     @Test
-    fun fromJsonTest() {
+    fun `crypto adapter from json`() {
         val dtoList = listOf(cryptoDto)
         val cryptoList = listOf(crypto)
 
@@ -46,7 +46,7 @@ class CryptoAdapterTest {
     }
 
     @Test
-    fun toJsonTest() {
+    fun `crypto adapter to json`() {
         val dtoList = listOf(cryptoDto)
         val cryptoList = listOf(crypto)
 

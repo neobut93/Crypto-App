@@ -1,13 +1,15 @@
 package com.cryptoapp.ui.screens.cryptolist
 
 import app.cash.turbine.test
+import com.cryptoapp.models.Crypto
 import com.cryptoapp.repositories.CryptoRepository
-import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsState
-import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsViewModel
+import com.cryptoapp.sample.sampleCryptos
+import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
@@ -36,10 +38,10 @@ class CryptoListViewModelTest {
     }
 
     @Test
-    fun `loading state return loading`() = runBlocking {
-         val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
+    fun `crypto list view model returns loading`() = runBlocking {
+        val mockRepo = mockk<CryptoRepository>(relaxed = true)
 
-        val sut = CryptoListViewModel(mockCryptoRepository)
+        val sut = CryptoListViewModel(mockRepo)
 
         sut.uiState.test {
             assertEquals(CryptoListState.Loading, awaitItem())
@@ -47,13 +49,35 @@ class CryptoListViewModelTest {
     }
 
     @Test
-    fun testCase1() {
+    fun `crypto list view model returns success`() = runBlocking {
         val mockRepo = mockk<CryptoRepository>(relaxed = true)
-        val expectedCrypto = runBlocking {
-            mockRepo.fetchCryptos()
-        }
+
+        val expectedCryptos: List<Crypto> = sampleCryptos
+
+        coEvery { mockRepo.cryptos} returns flowOf(expectedCryptos)
+
         val sut = CryptoListViewModel(mockRepo)
-        val result = sut.fetchCryptos()
-        assertEquals(expectedCrypto, result)
+        sut.fetchCryptos()
+
+        sut.uiState.test {
+            // note: if you run the whole suite you would need to assert loading 1st, but works without if you run separately
+            assertEquals(CryptoListState.Loading, awaitItem())
+            assertEquals(CryptoListState.Success(expectedCryptos), awaitItem())
+        }
+    }
+
+    @Test
+    fun `crypto list view model returns error`() = runBlocking {
+        val mockRepo = mockk<CryptoRepository>(relaxed = true)
+        
+        coEvery { mockRepo.fetchCryptos()} throws RuntimeException("Error")
+
+        val sut = CryptoListViewModel(mockRepo)
+        sut.fetchCryptos()
+
+        sut.uiState.test {
+            assertEquals(CryptoListState.Loading, awaitItem())
+            assertEquals(CryptoListState.Error(RuntimeException("Error")).toString(), awaitItem().toString())
+        }
     }
 }

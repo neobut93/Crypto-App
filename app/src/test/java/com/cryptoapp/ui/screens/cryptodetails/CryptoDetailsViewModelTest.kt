@@ -3,8 +3,6 @@ package com.cryptoapp.ui.screens.cryptodetails
 import app.cash.turbine.test
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.sample.sampleCrypto
-import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsState
-import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsViewModel
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -39,7 +37,7 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `loading state return loading`() = runBlocking {
+    fun `crypto details view model returns loading`() = runBlocking {
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
         sut.uiState.test {
@@ -48,7 +46,7 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `success state returns success`() = runBlocking {
+    fun `crypto details view model returns success`() = runBlocking {
         val cryptoId = 1
         val crypto = sampleCrypto
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
@@ -63,7 +61,7 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `error state returns error`() = runBlocking {
+    fun `crypto details view model returns error`() = runBlocking {
         val cryptoId = 1
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
