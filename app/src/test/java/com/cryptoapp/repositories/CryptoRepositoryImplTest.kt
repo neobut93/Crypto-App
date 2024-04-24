@@ -5,6 +5,7 @@ import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
 import com.cryptoapp.sample.sampleCryptos
 import com.cryptoapp.database.CryptoDao
+import com.cryptoapp.sample.sampleCrypto
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -58,7 +59,6 @@ class CryptoRepositoryImplTest {
         }
     }
 
-
     @Test
     fun `crypto repository returns failure`() = runBlocking {
 
@@ -69,6 +69,22 @@ class CryptoRepositoryImplTest {
             sut.fetchCryptos()
         } catch (e: Throwable) {
             assertTrue(e.message.toString().contains("Request failed:"))
+        }
+    }
+
+    @Test
+    fun `crypto repository returns crypto`() = runBlocking {
+        val expectedCryptos: List<Crypto> = sampleCryptos
+        val expectedCrypto: Crypto = sampleCrypto
+
+        coEvery { mockService.getAllCryptos() } returns Response.success(expectedCryptos)
+
+        val sut = CryptoRepositoryImpl(mockService, mockCryptoDao)
+
+        sut.fetchCryptos()
+        sut.cryptos.test {
+            sut.getCrypto(1)
+            assertEquals(expectedCrypto, awaitItem()[0])
         }
     }
 }
