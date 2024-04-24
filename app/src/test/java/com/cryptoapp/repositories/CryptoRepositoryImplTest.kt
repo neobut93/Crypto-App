@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
 import com.cryptoapp.sample.sampleCryptos
-import com.kodeco.android.countryinfo.database.CryptoDao
+import com.cryptoapp.database.CryptoDao
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -27,7 +27,7 @@ class CryptoRepositoryImplTest {
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private val mockService: CryptoService = mockk()
-    private val mockCountryDao = mockk<CryptoDao>(relaxed = true)
+    private val mockCryptoDao = mockk<CryptoDao>(relaxed = true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -44,17 +44,17 @@ class CryptoRepositoryImplTest {
 
     @Test
     fun `crypto repository returns success`() = runTest {
-        val expectedCountries: List<Crypto> = sampleCryptos
+        val expectedCryptos: List<Crypto> = sampleCryptos
 
         val emptyCountryList = emptyList<Crypto>()
 
-        coEvery { mockService.getAllCryptos() } returns Response.success(expectedCountries)
-        val sut = CryptoRepositoryImpl(mockService, mockCountryDao)
+        coEvery { mockService.getAllCryptos() } returns Response.success(expectedCryptos)
+        val sut = CryptoRepositoryImpl(mockService, mockCryptoDao)
 
         sut.cryptos.test {
             sut.fetchCryptos()
             assertEquals(emptyCountryList, awaitItem())
-            assertEquals(expectedCountries, awaitItem())
+            assertEquals(expectedCryptos, awaitItem())
         }
     }
 
@@ -63,7 +63,7 @@ class CryptoRepositoryImplTest {
     fun `crypto repository returns failure`() = runBlocking {
 
         coEvery { mockService.getAllCryptos() } returns Response.error(404, "{}".toResponseBody())
-        val sut = CryptoRepositoryImpl(mockService, mockCountryDao)
+        val sut = CryptoRepositoryImpl(mockService, mockCryptoDao)
 
         try {
             sut.fetchCryptos()

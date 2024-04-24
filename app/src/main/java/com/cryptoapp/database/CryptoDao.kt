@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.database
+package com.cryptoapp.database
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -70,6 +70,8 @@ class CryptoDetailsViewModelTest {
         sut.getCryptoDetails(cryptoId)
 
         sut.uiState.test {
+            // note: if you run the whole suite you would need to assert loading 1st, but works without if you run separately
+            assertEquals(CryptoDetailsState.Loading, awaitItem())
             assertEquals(CryptoDetailsState.Error(Exception("Crypto not found")).toString(), awaitItem().toString())
         }
     }

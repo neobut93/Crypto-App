@@ -23,6 +23,7 @@ class CryptoListViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private val mockRepo = mockk<CryptoRepository>(relaxed = true)
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
@@ -39,8 +40,6 @@ class CryptoListViewModelTest {
 
     @Test
     fun `crypto list view model returns loading`() = runBlocking {
-        val mockRepo = mockk<CryptoRepository>(relaxed = true)
-
         val sut = CryptoListViewModel(mockRepo)
 
         sut.uiState.test {
@@ -50,8 +49,6 @@ class CryptoListViewModelTest {
 
     @Test
     fun `crypto list view model returns success`() = runBlocking {
-        val mockRepo = mockk<CryptoRepository>(relaxed = true)
-
         val expectedCryptos: List<Crypto> = sampleCryptos
 
         coEvery { mockRepo.cryptos} returns flowOf(expectedCryptos)
@@ -68,8 +65,6 @@ class CryptoListViewModelTest {
 
     @Test
     fun `crypto list view model returns error`() = runBlocking {
-        val mockRepo = mockk<CryptoRepository>(relaxed = true)
-        
         coEvery { mockRepo.fetchCryptos()} throws RuntimeException("Error")
 
         val sut = CryptoListViewModel(mockRepo)

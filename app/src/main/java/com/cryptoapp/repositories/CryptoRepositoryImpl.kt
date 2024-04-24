@@ -2,7 +2,7 @@ package com.cryptoapp.repositories
 
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
-import com.kodeco.android.countryinfo.database.CryptoDao
+import com.cryptoapp.database.CryptoDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
