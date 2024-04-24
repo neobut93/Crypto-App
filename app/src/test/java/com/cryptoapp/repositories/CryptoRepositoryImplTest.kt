@@ -3,6 +3,7 @@ package com.cryptoapp.repositories
 import app.cash.turbine.test
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.sample.sampleCryptos
 import com.kodeco.android.countryinfo.database.CryptoDao
 import io.mockk.coEvery
@@ -41,18 +42,24 @@ class CryptoRepositoryImplTest {
     }
 
     @Test
-    fun getCrypto() {
-        // Arrange
-        val mockRepo = mockk<CryptoRepositoryImpl>()
-        val expectedCrypto: Crypto = mockk<Crypto>()
+    fun getCrypto() = runTest {
+       // val mockRepo = mockk<CryptoRepositoryImpl>()
+        val expectedCrypto: Crypto = sampleCrypto
+        val emptyCrypto : Crypto? = null
+        val expectedCountries: List<Crypto> = sampleCryptos
 
-        every { mockRepo.getCrypto(1) } returns expectedCrypto
+        val mockService: CryptoService = mockk()
+        val mockCountryDao = mockk<CryptoDao>(relaxed = true)
+        coEvery { mockService.getAllCryptos() } returns Response.success(expectedCountries)
 
-        // Act
-        val sut = mockRepo.getCrypto(1)
+        val sut = CryptoRepositoryImpl(mockService, mockCountryDao)
 
-        //Assert
-        assertEquals(expectedCrypto, sut)
+        sut.cryptos.test {
+            sut.fetchCryptos()
+            sut.getCrypto(1)
+            assertEquals(emptyCrypto, awaitItem())
+            assertEquals(expectedCrypto, awaitItem())
+        }
     }
 
 
