@@ -26,6 +26,7 @@ hilt-nav="1.1.0-rc01"
 prefs="1.0.0"
 splash="1.0.1"
 mockk = "1.13.9"
+lottie="5.2.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -62,6 +63,7 @@ navigation = { module = "androidx.navigation:navigation-compose" , version.ref="
 coil = { module = "io.coil-kt:coil-compose", version.ref="coil" }
 espresso = { module = "androidx.test.espresso:espresso-core", version.ref="espresso" }
 splash = { module = "androidx.core:core-splashscreen", version.ref="splash" }
+lottie = {module = "com.airbnb.android:lottie-compose", version.ref="lottie"}
 
 fonts = {  module = "androidx.compose.ui:ui-text-google-fonts", version.ref="fonts" }
 
