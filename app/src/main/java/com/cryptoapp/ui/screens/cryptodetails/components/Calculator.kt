@@ -116,10 +116,18 @@ fun CalculatorField(crypto: Crypto) {
                 onDone = {
                     result = if (!toggle) {
                         formatBuyOption(
-                            CalculatorActions.calculateBuy(inputValue.toDouble(), crypto.current_price)
+                            CalculatorActions.calculateBuy(
+                                inputValue.toDouble(),
+                                crypto.current_price
+                            )
                         )
                     } else {
-                        formatSellOption( CalculatorActions.calculateSell(crypto.current_price, inputValue.toDouble()))
+                        formatSellOption(
+                            CalculatorActions.calculateSell(
+                                crypto.current_price,
+                                inputValue.toDouble()
+                            )
+                        )
                     }
                     keyboardController?.hide()
                 }),
@@ -133,10 +141,12 @@ fun CalculatorField(crypto: Crypto) {
                 if (!toggle) {
                     Text(text = stringResource(R.string.enter_amount_in))
                 } else {
-                    Text(text = stringResource(
-                        R.string.enter_amount,
-                        crypto.symbol.uppercase(Locale.ROOT)
-                    ))
+                    Text(
+                        text = stringResource(
+                            R.string.enter_amount,
+                            crypto.symbol.uppercase(Locale.ROOT)
+                        )
+                    )
                 }
             },
             singleLine = true,
@@ -150,10 +160,18 @@ fun CalculatorField(crypto: Crypto) {
                 onClick = {
                     result = if (!toggle) {
                         formatBuyOption(
-                            CalculatorActions.calculateBuy(inputValue.toDouble(), crypto.current_price)
+                            CalculatorActions.calculateBuy(
+                                inputValue.toDouble(),
+                                crypto.current_price
+                            )
                         )
                     } else {
-                        formatSellOption( CalculatorActions.calculateSell(crypto.current_price, inputValue.toDouble()))
+                        formatSellOption(
+                            CalculatorActions.calculateSell(
+                                crypto.current_price,
+                                inputValue.toDouble()
+                            )
+                        )
                     }
                 },
                 enabled = inputValue != "",
@@ -208,11 +226,19 @@ fun CalculatorField(crypto: Crypto) {
                 .background(MaterialTheme.colorScheme.background)
                 .padding(start = 15.dp)
         ) {
-            AutoResizedText(
-                text = "$result ",
-                style = androidx.compose.material.MaterialTheme.typography.h1,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
+            if (result == "0") {
+                Text(
+                    text = "$result ",
+                    style = androidx.compose.material.MaterialTheme.typography.h1,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            } else {
+                AutoResizedText(
+                    text = "$result ",
+                    style = androidx.compose.material.MaterialTheme.typography.h1,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
         Spacer(modifier = Modifier.height(10.dp))
     }
