@@ -2,8 +2,11 @@ package com.cryptoapp.ui.screens.error
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.cryptoapp.R
 
 @Composable
 fun ErrorDialog(
@@ -13,23 +16,29 @@ fun ErrorDialog(
     AlertDialog(
         onDismissRequest = {},
         title = {
-            Text(text = "Error")
+            Text(text = stringResource(R.string.error))
         },
         text = {
-            Text("Sorry, there is an error. Check your connection and try again")
+            Text(stringResource(R.string.sorry_there_is_an_error))
         },
         confirmButton = {
             Button(
                 onClick = onRetry
             ) {
-                Text("Try again")
+                Text(
+                    stringResource(R.string.try_again),
+                    color = MaterialTheme.colorScheme.inversePrimary
+                )
             }
         },
         dismissButton = {
             Button(
                 onClick = onAppClose
             ) {
-                Text("Close the app")
+                Text(
+                    stringResource(R.string.close_the_app),
+                    color = MaterialTheme.colorScheme.inversePrimary
+                )
             }
         }
     )

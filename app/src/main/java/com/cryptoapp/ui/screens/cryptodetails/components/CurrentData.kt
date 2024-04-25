@@ -11,10 +11,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
 
 @Composable
@@ -42,4 +44,10 @@ fun CurrentData(crypto: Crypto) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun CurrentDataPreview() {
+    CurrentData(crypto = sampleCrypto)
 }

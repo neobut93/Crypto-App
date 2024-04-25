@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
 
 @Composable
@@ -77,4 +79,10 @@ fun MarketsData(crypto: Crypto) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun MarketsDataPreview() {
+    MarketsData(crypto = sampleCrypto)
 }

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,8 +32,10 @@ fun CryptoWelcomeScreen(
     val context = LocalContext.current
     val preferencesManager = remember { PreferencesManager(context) }
 
-    Column(modifier = Modifier.fillMaxSize()
-        .background(MaterialTheme.colorScheme.background)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) {
         CryptoWelcomePage()
         Spacer(modifier = Modifier.height(5.dp))

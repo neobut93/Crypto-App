@@ -35,7 +35,6 @@ fun CryptoInfoLoadingRow() {
     }
 }
 
-
 @Preview
 @Composable
 fun CountryInfoLoadingRowPreview() {

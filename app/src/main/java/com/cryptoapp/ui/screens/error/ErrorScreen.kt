@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ErrorScreen(
@@ -26,14 +27,12 @@ fun ErrorScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun ErrorPreview() {
-//    MyApplicationTheme {
-//        Error(
-//            userFriendlyMessageText = "Error message",
-//            error = Throwable("Error message"),
-//            onRetry = {},
-//        )
-//    }
-//}
+@Preview
+@Composable
+fun ErrorScreenPreview() {
+    ErrorScreen(
+        error = Throwable("Error message"),
+        onRetry = {},
+        onAppClose = {}
+    )
+}

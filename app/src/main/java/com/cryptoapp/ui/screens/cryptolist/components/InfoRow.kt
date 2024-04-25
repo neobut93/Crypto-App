@@ -1,7 +1,6 @@
 package com.cryptoapp.ui.screens.cryptolist.components
 
-//import com.cryptoapp.sample.sampleCrypto
-import android.content.res.Resources.Theme
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,15 +17,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
 import java.util.Locale
 
@@ -36,6 +38,8 @@ fun CryptoInfoRow(
     crypto: Crypto,
     onTap: () -> Unit,
 ) {
+    val orientation = LocalConfiguration.current.orientation
+
     Card(
         onClick = onTap,
         modifier = Modifier
@@ -43,7 +47,6 @@ fun CryptoInfoRow(
             .padding(all = 2.dp)
     ) {
         Row(
-            //todo add color depends on Theme
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.background)
@@ -63,9 +66,14 @@ fun CryptoInfoRow(
                     .crossfade(true)
                     .build(),
                 contentDescription = stringResource(R.string.cryptoicon),
-                modifier = Modifier
-                    .width(30.dp)
-                    .weight(0.2f)
+                modifier = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    Modifier
+                        .size(40.dp)
+                } else {
+                    Modifier
+                        .width(30.dp)
+                        .weight(0.2f)
+                }
             )
             Spacer(modifier = Modifier.size(10.dp))
             Text(
@@ -80,7 +88,15 @@ fun CryptoInfoRow(
             )
             Text(
                 text = PriceFormatting.formatPercentageChange(crypto.price_change_percentage_24h) + " %",
-                modifier = Modifier.weight(0.4f), fontWeight = FontWeight.Bold, fontSize = 18.sp,
+                modifier = Modifier
+                    .weight(0.4f)
+                    .padding(
+                        if (crypto.price_change_percentage_24h < 0) {
+                            0.dp
+                        } else {
+                            6.dp
+                        }
+                    ), fontWeight = FontWeight.Bold, fontSize = 18.sp,
                 color = if (crypto.price_change_percentage_24h > 0) {
                     Color(0xFF63B960)
                 } else {
@@ -91,21 +107,11 @@ fun CryptoInfoRow(
     }
 }
 
-//@Preview
-//@Composable
-//fun CryptoInfoRowPreview() {
-//    CryptoInfoRow(
-//        crypto = Crypto(
-//            "Bitcoin",
-//            "btc",
-//            "url",
-//            65498.00,
-//            1178.66,
-//            12321.00,
-//            1293286386553,
-//            1
-//        )
-//    ) {
-//
-//    }
-//}
+@Preview
+@Composable
+fun CryptoInfoRowPreview() {
+    CryptoInfoRow(
+        crypto = sampleCrypto,
+    ) {
+    }
+}

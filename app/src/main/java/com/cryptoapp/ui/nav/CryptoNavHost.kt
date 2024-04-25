@@ -15,6 +15,7 @@ import com.cryptoapp.datastore.PreferencesManager
 import com.cryptoapp.ui.screens.Screen
 import com.cryptoapp.ui.screens.cryptodetails.CryptoDetailsScreen
 import com.cryptoapp.ui.screens.cryptolist.CryptoListScreen
+import com.cryptoapp.ui.screens.splash.SplashScreen
 import com.cryptoapp.ui.screens.welcome.CryptoWelcomeScreen
 
 @Composable
@@ -27,13 +28,14 @@ fun CryptoNavHost(
         remember { mutableStateOf(preferencesManager.getData(WELCOME_KEY, false)) }
 
     NavHost(
-        navController = navController,
-        startDestination = if (preferencesData.value) {
-            Screen.List.path
-        } else {
-            Screen.Welcome.path
-        }
+        navController = navController, startDestination = Screen.Splash.path
     ) {
+        composable(Screen.Welcome.path) {
+            CryptoWelcomeScreen {
+                navController.popBackStack()
+                navController.navigate(Screen.List.path)
+            }
+        }
         composable(Screen.Welcome.path) {
             CryptoWelcomeScreen {
                 navController.popBackStack()
@@ -57,6 +59,22 @@ fun CryptoNavHost(
                 cryptoIndex = countryIndex,
                 viewModel = hiltViewModel(),
                 onNavigateUp = { navController.navigateUp() }
+            )
+        }
+        composable(Screen.Splash.path) {
+            SplashScreen(
+                popBackStack = {
+                    navController.popBackStack()
+                },
+                nextDestination = {
+                    if (preferencesData.value) {
+                        navController.navigate(Screen.List.path)
+                    } else {
+                        navController.navigate(
+                            Screen.Welcome.path
+                        )
+                    }
+                }
             )
         }
     }

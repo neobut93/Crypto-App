@@ -53,7 +53,6 @@ fun CryptoInfoList(
                             onCryptoRowTap(id)
                         },
                     )
-                    //todo add color depends on theme
                     Divider(color = Color(0xFFCECED5))
                 }
             }
@@ -61,6 +60,7 @@ fun CryptoInfoList(
         }
         PullRefreshIndicator(
             modifier = Modifier.align(Alignment.TopCenter),
-            refreshing = isRefreshing, state = pullRefreshState)
+            refreshing = isRefreshing, state = pullRefreshState
+        )
     }
 }
