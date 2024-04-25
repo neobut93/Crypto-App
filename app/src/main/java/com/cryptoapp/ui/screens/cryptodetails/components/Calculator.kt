@@ -35,11 +35,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.utils.AutoResizedText
 import com.cryptoapp.utils.CalculatorActions
@@ -50,9 +52,9 @@ import java.util.Locale
 @Composable
 fun CalculatorField(crypto: Crypto) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     var inputValue by rememberSaveable { mutableStateOf("") }
     var result by rememberSaveable { mutableStateOf("0") }
-    val focusManager = LocalFocusManager.current
     var toggle by rememberSaveable { mutableStateOf(false) }
     val limitAmountOfDigits = 6
     val imeAction = if (inputValue != "") {
@@ -63,7 +65,7 @@ fun CalculatorField(crypto: Crypto) {
 
     Row {
         Text(
-            text = "Calculate amount:",
+            text = stringResource(R.string.calculate_amount),
             modifier = Modifier.padding(all = 5.dp),
             fontStyle = FontStyle.Italic,
         )
@@ -129,9 +131,12 @@ fun CalculatorField(crypto: Crypto) {
                 .padding(16.dp),
             label = {
                 if (!toggle) {
-                    Text(text = "Enter amount in $")
+                    Text(text = stringResource(R.string.enter_amount_in))
                 } else {
-                    Text(text = "Enter ${crypto.symbol.uppercase(Locale.ROOT)} amount")
+                    Text(text = stringResource(
+                        R.string.enter_amount,
+                        crypto.symbol.uppercase(Locale.ROOT)
+                    ))
                 }
             },
             singleLine = true,
@@ -162,7 +167,7 @@ fun CalculatorField(crypto: Crypto) {
                 )
             ) {
                 Text(
-                    text = "Calculate",
+                    text = stringResource(R.string.calculate),
                     color = MaterialTheme.colorScheme.scrim
                 )
             }
@@ -192,9 +197,9 @@ fun CalculatorField(crypto: Crypto) {
         }
         Spacer(modifier = Modifier.size(15.dp))
         if (!toggle) {
-            Text(text = "Amount of ${crypto.symbol.uppercase(Locale.ROOT)}")
+            Text(text = stringResource(R.string.amount_of, crypto.symbol.uppercase(Locale.ROOT)))
         } else {
-            Text(text = "Amount in $")
+            Text(text = stringResource(R.string.amount_in))
         }
         Box(
             contentAlignment = Alignment.Center,
