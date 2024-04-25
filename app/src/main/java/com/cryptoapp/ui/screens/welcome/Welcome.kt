@@ -27,8 +27,10 @@ fun CryptoWelcomePage() {
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )
-        Column(modifier = Modifier
-            .padding(15.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(15.dp)
+        ) {
             Text(
                 text = "Crypto App",
                 style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),

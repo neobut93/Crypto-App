@@ -8,11 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -50,16 +46,9 @@ fun CryptoListScreen(
             TopAppBar(
                 title = {
                     Box(modifier = Modifier.size(80.dp)) {
-                        LottieAnimation(composition = splashComposition, iterations = LottieConstants.IterateForever)
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = {},
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.Help,
-                            contentDescription = "text 2",
+                        LottieAnimation(
+                            composition = splashComposition,
+                            iterations = LottieConstants.IterateForever
                         )
                     }
                 },

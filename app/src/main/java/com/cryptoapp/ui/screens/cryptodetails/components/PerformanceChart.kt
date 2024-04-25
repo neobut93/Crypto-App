@@ -7,9 +7,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun PerformanceChart(modifier: Modifier = Modifier, startPrice: Float, highestPrice: Float, lowestPrice: Float, currentPrice: Float) {
+fun PerformanceChart(
+    modifier: Modifier = Modifier,
+    startPrice: Float,
+    highestPrice: Float,
+    lowestPrice: Float,
+    currentPrice: Float
+) {
     val list: List<Float> = listOf(startPrice, highestPrice, lowestPrice, currentPrice)
     val zipList: List<Pair<Float, Float>> = list.zipWithNext()
 
@@ -21,7 +28,7 @@ fun PerformanceChart(modifier: Modifier = Modifier, startPrice: Float, highestPr
         val min = list.min()
 
         val lineColor =
-            if (list.last() > list.first()) Color(0xFF63B960) else Color.Red // <-- Line color is Green if its going up and Red otherwise
+            if (list.last() > list.first()) Color(0xFF63B960) else Color.Red
 
         for (pair in zipList) {
 
@@ -33,9 +40,15 @@ fun PerformanceChart(modifier: Modifier = Modifier, startPrice: Float, highestPr
                     .fillMaxHeight()
                     .weight(1f),
                 onDraw = {
-                    val fromPoint = Offset(x = 0f, y = size.height.times(1 - fromValuePercentage)) // <-- Use times so it works for any available space
+                    val fromPoint = Offset(
+                        x = 0f,
+                        y = size.height.times(1 - fromValuePercentage)
+                    )
                     val toPoint =
-                        Offset(x = size.width, y = size.height.times(1 - toValuePercentage)) // <-- Also here!
+                        Offset(
+                            x = size.width,
+                            y = size.height.times(1 - toValuePercentage)
+                        )
 
                     drawLine(
                         color = lineColor,
@@ -46,4 +59,10 @@ fun PerformanceChart(modifier: Modifier = Modifier, startPrice: Float, highestPr
                 })
         }
     }
+}
+
+@Preview
+@Composable
+fun PerformanceChartPreview() {
+    PerformanceChart(startPrice = 123F, highestPrice = 600F, lowestPrice = 100F, currentPrice = 300F)
 }

@@ -9,20 +9,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
 
 @Composable
 fun HoursData(crypto: Crypto) {
     Column(
-        verticalArrangement = Arrangement.SpaceEvenly) {
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
         Row {
             Text(
                 text = "24h data:",
@@ -78,4 +80,10 @@ fun HoursData(crypto: Crypto) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun HoursDataPreview() {
+    HoursData(crypto = sampleCrypto)
 }

@@ -43,7 +43,6 @@ fun CryptoInfoRow(
             .padding(all = 2.dp)
     ) {
         Row(
-            //todo add color depends on Theme
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.background)
