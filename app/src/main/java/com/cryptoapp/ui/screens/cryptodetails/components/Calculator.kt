@@ -1,4 +1,4 @@
-package com.cryptoapp.ui.screens.cryptodetails.calculator
+package com.cryptoapp.ui.screens.cryptodetails.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,8 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
+import androidx.compose.material3.Button
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.Sell
@@ -24,6 +23,8 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -86,9 +87,9 @@ fun CalculatorField(crypto: Crypto) {
                     inputValue = ""
                 },
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = MaterialTheme.colorScheme.secondary,
-                    checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-                    uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
+                    checkedThumbColor = MaterialTheme.colorScheme.inverseSurface,
+                    checkedTrackColor = MaterialTheme.colorScheme.secondaryContainer,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.inverseSurface,
                     uncheckedTrackColor = MaterialTheme.colorScheme.secondaryContainer,
                 ),
                 thumbContent = {
@@ -130,7 +131,10 @@ fun CalculatorField(crypto: Crypto) {
                     Text(text = "Enter ${crypto.symbol.uppercase(Locale.ROOT)} amount")
                 }
             },
-            singleLine = true
+            singleLine = true,
+            colors = TextFieldDefaults.colors(
+                focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            )
         )
         Row {
             Button(
@@ -144,6 +148,12 @@ fun CalculatorField(crypto: Crypto) {
                 enabled = inputValue != "",
                 modifier = Modifier.size(width = 120.dp, height = 40.dp),
                 shape = RoundedCornerShape(50),
+                colors = androidx.compose.material3.ButtonColors(
+                    containerColor = MaterialTheme.colorScheme.inverseSurface,
+                    contentColor = MaterialTheme.colorScheme.scrim,
+                    disabledContainerColor = MaterialTheme.colorScheme.inversePrimary,
+                    disabledContentColor = MaterialTheme.colorScheme.scrim,
+                )
             ) {
                 Text(
                     text = "Calculate",
@@ -160,7 +170,13 @@ fun CalculatorField(crypto: Crypto) {
                 },
                 enabled = inputValue != "",
                 modifier = Modifier.size(width = 120.dp, height = 40.dp),
-                shape = RoundedCornerShape(50)
+                shape = RoundedCornerShape(50),
+                colors = androidx.compose.material3.ButtonColors(
+                    containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                    contentColor = MaterialTheme.colorScheme.scrim,
+                    disabledContainerColor = MaterialTheme.colorScheme.inversePrimary,
+                    disabledContentColor = MaterialTheme.colorScheme.scrim,
+                )
 
             ) {
                 Text(
