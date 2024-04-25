@@ -16,4 +16,10 @@
     <string name="sorry_there_is_an_error">Sorry, there is an error. Check your connection and try again</string>
     <string name="try_again">Try again</string>
     <string name="close_the_app">Close the app</string>
+    <string name="calculate_amount">Calculate amount:</string>
+    <string name="enter_amount_in">Enter amount in $</string>
+    <string name="enter_amount">Enter %1$s amount</string>
+    <string name="calculate">Calculate</string>
+    <string name="amount_of">Amount of %1$s</string>
+    <string name="amount_in">Amount in $</string>
 </resources>
