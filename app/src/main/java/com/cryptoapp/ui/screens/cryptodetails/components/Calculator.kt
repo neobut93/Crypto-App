@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.utils.AutoResizedText
+import com.cryptoapp.utils.CalculatorActions
 import com.cryptoapp.utils.DataFormatting.formatBuyOption
 import com.cryptoapp.utils.DataFormatting.formatSellOption
 import java.util.Locale
@@ -112,9 +113,11 @@ fun CalculatorField(crypto: Crypto) {
             keyboardActions = KeyboardActions(
                 onDone = {
                     result = if (!toggle) {
-                        formatBuyOption(inputValue.toDouble() / crypto.current_price)
+                        formatBuyOption(
+                            CalculatorActions.calculateBuy(inputValue.toDouble(), crypto.current_price)
+                        )
                     } else {
-                        formatSellOption(crypto.current_price * inputValue.toDouble())
+                        formatSellOption( CalculatorActions.calculateSell(crypto.current_price, inputValue.toDouble()))
                     }
                     keyboardController?.hide()
                 }),
@@ -136,13 +139,16 @@ fun CalculatorField(crypto: Crypto) {
                 focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             )
         )
+
         Row {
             Button(
                 onClick = {
                     result = if (!toggle) {
-                        formatBuyOption(inputValue.toDouble() / crypto.current_price)
+                        formatBuyOption(
+                            CalculatorActions.calculateBuy(inputValue.toDouble(), crypto.current_price)
+                        )
                     } else {
-                        formatSellOption(crypto.current_price * inputValue.toDouble())
+                        formatSellOption( CalculatorActions.calculateSell(crypto.current_price, inputValue.toDouble()))
                     }
                 },
                 enabled = inputValue != "",
