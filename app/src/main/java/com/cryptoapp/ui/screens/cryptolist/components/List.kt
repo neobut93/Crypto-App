@@ -53,7 +53,6 @@ fun CryptoInfoList(
                             onCryptoRowTap(id)
                         },
                     )
-                    //todo add color depends on theme
                     Divider(color = Color(0xFFCECED5))
                 }
             }

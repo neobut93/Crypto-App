@@ -24,7 +24,8 @@ private val DarkColorScheme = darkColorScheme(
     scrim = Color.Black,
     inversePrimary = Color.White,
     inverseSurface = Color(0xFF63B960),
-    inverseOnSurface = Color.Red
+    inverseOnSurface = Color.Red,
+    background = Color.Black
 )
 
 private val LightColorScheme = lightColorScheme(
