@@ -1,5 +1,6 @@
 package com.cryptoapp.ui.screens.cryptolist.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +38,8 @@ fun CryptoInfoRow(
     crypto: Crypto,
     onTap: () -> Unit,
 ) {
+    val orientation = LocalConfiguration.current.orientation
+
     Card(
         onClick = onTap,
         modifier = Modifier
@@ -62,9 +66,14 @@ fun CryptoInfoRow(
                     .crossfade(true)
                     .build(),
                 contentDescription = stringResource(R.string.cryptoicon),
-                modifier = Modifier
-                    .width(30.dp)
-                    .weight(0.2f)
+                modifier = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    Modifier
+                        .size(40.dp)
+                } else {
+                    Modifier
+                        .width(30.dp)
+                        .weight(0.2f)
+                }
             )
             Spacer(modifier = Modifier.size(10.dp))
             Text(
