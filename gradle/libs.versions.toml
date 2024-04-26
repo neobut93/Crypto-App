@@ -27,6 +27,8 @@ prefs="1.0.0"
 splash="1.0.1"
 mockk = "1.13.9"
 lottie="5.2.0"
+coroutines-test="1.8.1-Beta"
+turbine = "1.1.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -86,8 +88,11 @@ hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", ve
 # Preferences
 prefs = {module = "androidx.datastore:datastore-preferences", version.ref = "prefs" }
 
-# mockk
+# test
+coroutines-test = { module= "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref="coroutines-test" }
 mockk = { group = "io.mockk", name = "mockk-jvm", version.ref = "mockk"}
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine"}
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

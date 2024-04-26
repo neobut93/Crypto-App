@@ -18,15 +18,23 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.cryptoapp.R
+import com.cryptoapp.models.Crypto
+import com.cryptoapp.repositories.CryptoRepository
+import com.cryptoapp.sample.sampleCrypto
+import com.cryptoapp.sample.sampleCryptos
 import com.cryptoapp.ui.screens.cryptolist.components.CryptoInfoList
 import com.cryptoapp.ui.screens.error.ErrorScreen
 import com.cryptoapp.ui.screens.loading.Loading
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @SuppressLint("UnusedCrossfadeTargetStateParameter")
 @Composable
@@ -89,4 +97,19 @@ fun CryptoListScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CryptoListScreenPreview() {
+    CryptoListScreen(viewModel = CryptoListViewModel(
+        repository = object : CryptoRepository {
+            override val cryptos: Flow<List<Crypto>>
+                get() = MutableStateFlow(sampleCryptos).asStateFlow()
+
+            override suspend fun fetchCryptos() {}
+
+            override fun getCrypto(id: Int): Crypto = sampleCrypto
+        }
+    ), onCryptoRowTap = {})
 }

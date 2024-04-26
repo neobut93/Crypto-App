@@ -93,7 +93,8 @@ fun CryptoDetailsScreen(
                 actions = {
                     IconButton(onClick = {
                         Intent(Intent.ACTION_VIEW).also {
-                            it.data = Uri.parse(COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id)
+                            it.data =
+                                Uri.parse(COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id)
                             if (it.resolveActivity(context.packageManager) != null) {
                                 context.startActivity(it)
                             }
@@ -106,7 +107,10 @@ fun CryptoDetailsScreen(
                     }
                     IconButton(onClick = {
                         Intent(Intent.ACTION_SEND).also {
-                            it.putExtra(Intent.EXTRA_TEXT, COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id)
+                            it.putExtra(
+                                Intent.EXTRA_TEXT,
+                                COINGECKO_URL + (uiState.value as? CryptoDetailsState.Success)?.crypto?.id
+                            )
                             it.type = "text/plain"
                             if (it.resolveActivity(context.packageManager) != null) {
                                 context.startActivity(it)

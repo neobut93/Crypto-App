@@ -9,8 +9,7 @@ object PriceFormatting {
             DataFormatting.formatLowPrice(currentPrice)
         } else if (currentPrice.toInt() == 1) {
             DataFormatting.formatHighPrice(currentPrice)
-        }
-        else {
+        } else {
             DataFormatting.formatLowestPrice(currentPrice)
         }
     }

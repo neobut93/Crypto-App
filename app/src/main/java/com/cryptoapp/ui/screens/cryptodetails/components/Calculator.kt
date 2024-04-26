@@ -39,10 +39,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.AutoResizedText
 import com.cryptoapp.utils.CalculatorActions
 import com.cryptoapp.utils.DataFormatting.formatBuyOption
@@ -242,4 +244,10 @@ fun CalculatorField(crypto: Crypto) {
         }
         Spacer(modifier = Modifier.height(10.dp))
     }
+}
+
+@Preview
+@Composable
+fun CalculatorFieldPreview() {
+    CalculatorField(sampleCrypto)
 }

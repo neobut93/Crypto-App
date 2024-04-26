@@ -96,9 +96,9 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
+    testImplementation(libs.coroutines.test)
     testImplementation (libs.mockk)
-    testImplementation("app.cash.turbine:turbine:1.1.0")
+    testImplementation (libs.turbine)
 
     kapt(libs.hilt.android.compiler)
 

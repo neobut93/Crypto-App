@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.cryptoapp.preferences.CryptoSharedPrefs
 import com.cryptoapp.preferences.PreferencesConstants.WELCOME_KEY
 
 @Composable
@@ -62,5 +63,16 @@ fun CryptoWelcomeScreen(
 @Preview
 @Composable
 fun OnBoardingScreenPreview() {
-    //CryptoWelcomeScreen {}
+    CryptoWelcomeScreen(
+        viewModel = WelcomeScreenViewModel(
+            prefs = object : CryptoSharedPrefs {
+                override fun getData(key: String, defaultValue: Boolean): Boolean {
+                    return true
+                }
+
+                override fun saveData(key: String, value: Boolean) {}
+            }
+        ),
+        navigate = {}
+    )
 }
