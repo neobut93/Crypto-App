@@ -1,8 +1,8 @@
 package com.cryptoapp.repositories
 
+import com.cryptoapp.database.CryptoDao
 import com.cryptoapp.models.Crypto
 import com.cryptoapp.network.CryptoService
-import com.cryptoapp.database.CryptoDao
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class CryptoRepositoryImpl(
     private val service: CryptoService,
     private val cryptoDao: CryptoDao
-): CryptoRepository {
+) : CryptoRepository {
 
     private val _cryptos: MutableStateFlow<List<Crypto>> = MutableStateFlow(emptyList())
     override val cryptos: StateFlow<List<Crypto>> = _cryptos.asStateFlow()
@@ -22,7 +22,7 @@ class CryptoRepositoryImpl(
             val cryptosResponse = service.getAllCryptos()
             cryptoDao.deleteAllCryptos()
             if (cryptosResponse.isSuccessful) {
-               val cryptos =  cryptosResponse.body()!!
+                val cryptos = cryptosResponse.body()!!
                     .toMutableList()
                 cryptoDao.addCryptos(cryptos)
                 cryptos

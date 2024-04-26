@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class CryptoSharedPrefsImpl @Inject constructor(@ApplicationContext context: Context): CryptoSharedPrefs {
+class CryptoSharedPrefsImpl @Inject constructor(@ApplicationContext context: Context) :
+    CryptoSharedPrefs {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(PreferencesConstants.PREFERENCES_NAME, Context.MODE_PRIVATE)
