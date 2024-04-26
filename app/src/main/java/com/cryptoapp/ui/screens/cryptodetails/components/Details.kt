@@ -32,7 +32,7 @@ fun CryptoDetails(
 
         item {
             Row(modifier = Modifier.padding(bottom = 10.dp)) {
-                Column(modifier = Modifier.weight(0.6f)) {
+                Column(modifier = Modifier.weight(0.7f)) {
                     HoursData(crypto)
                 }
                 Column(modifier = Modifier.weight(0.4f)) {
@@ -40,7 +40,7 @@ fun CryptoDetails(
                         modifier = Modifier
                             .width(230.dp)
                             .height(120.dp)
-                            .padding(start = 10.dp, bottom = 5.dp, top = 10.dp, end = 10.dp),
+                            .padding(start = 4.dp, bottom = 5.dp, top = 10.dp, end = 10.dp),
                         startPrice = crypto.current_price.toFloat() - crypto.price_change_24h.toFloat(),
                         highestPrice = crypto.high_24h.toFloat(),
                         lowestPrice = crypto.low_24h.toFloat(),
