@@ -1,6 +1,7 @@
 package com.cryptoapp.ui.screens.cryptolist.components
 
 //noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,13 +16,16 @@ import androidx.compose.material.Divider
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cryptoapp.models.Crypto
+import com.cryptoapp.sample.sampleCryptos
 
 @Composable
 fun CryptoInfoList(
@@ -63,4 +67,15 @@ fun CryptoInfoList(
             refreshing = isRefreshing, state = pullRefreshState
         )
     }
+}
+
+@Preview
+@Composable
+fun CryptoInfoListPreview() {
+    CryptoInfoList(
+        cryptos = sampleCryptos,
+        onCryptoRowTap = {},
+        pullRefreshState = rememberPullRefreshState(refreshing = true, onRefresh = { }),
+        isRefreshing = false
+    )
 }
