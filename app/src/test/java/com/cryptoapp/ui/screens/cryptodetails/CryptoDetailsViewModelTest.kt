@@ -10,7 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -19,25 +21,21 @@ import org.junit.Test
 
 class CryptoDetailsViewModelTest {
 
-    @OptIn(ExperimentalCoroutinesApi::class, DelicateCoroutinesApi::class)
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-    private val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
-
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
-        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(UnconfinedTestDispatcher())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-        mainThreadSurrogate.close()
     }
 
     @Test
-    fun `crypto details view model returns loading`() = runBlocking {
+    fun `crypto details view model returns loading`() = runTest {
+        val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
         sut.uiState.test {
@@ -46,7 +44,8 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `crypto details view model returns success`() = runBlocking {
+    fun `crypto details view model returns success`() = runTest {
+        val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
         val cryptoId = 1
         val crypto = sampleCrypto
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
@@ -61,7 +60,8 @@ class CryptoDetailsViewModelTest {
     }
 
     @Test
-    fun `crypto details view model returns error`() = runBlocking {
+    fun `crypto details view model returns error`() = runTest {
+        val mockCryptoRepository = mockk<CryptoRepository>(relaxed = true)
         val cryptoId = 1
         val sut = CryptoDetailsViewModel(mockCryptoRepository)
 
@@ -70,8 +70,6 @@ class CryptoDetailsViewModelTest {
         sut.getCryptoDetails(cryptoId)
 
         sut.uiState.test {
-            // note: if you run the whole suite you would need to assert loading 1st, but works without if you run separately
-            assertEquals(CryptoDetailsState.Loading, awaitItem())
             assertEquals(CryptoDetailsState.Error(Exception("Crypto not found")).toString(), awaitItem().toString())
         }
     }
