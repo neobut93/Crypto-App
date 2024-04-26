@@ -64,5 +64,10 @@ fun PerformanceChart(
 @Preview
 @Composable
 fun PerformanceChartPreview() {
-    PerformanceChart(startPrice = 123F, highestPrice = 600F, lowestPrice = 100F, currentPrice = 300F)
+    PerformanceChart(
+        startPrice = 123F,
+        highestPrice = 600F,
+        lowestPrice = 100F,
+        currentPrice = 300F
+    )
 }
