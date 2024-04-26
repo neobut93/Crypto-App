@@ -1,4 +1,4 @@
-package com.cryptoapp.datastore
+package com.cryptoapp.preferences
 
 object PreferencesConstants {
 
