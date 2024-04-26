@@ -1,6 +1,8 @@
 package com.cryptoapp.ui.screens.cryptolist.components
 
 import android.content.res.Configuration
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -21,15 +23,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cryptoapp.R
 import com.cryptoapp.models.Crypto
-import com.cryptoapp.sample.sampleCrypto
 import com.cryptoapp.utils.PriceFormatting
+import java.time.Duration
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,8 +38,13 @@ import java.util.Locale
 fun CryptoInfoRow(
     crypto: Crypto,
     onTap: () -> Unit,
+    //toast: Boolean
 ) {
     val orientation = LocalConfiguration.current.orientation
+    val context = LocalContext.current
+    val customDuration: Long = 1000L // For example, 2000 milliseconds (2 seconds)
+
+   // Log.d("GGG", toast.toString())
 
     Card(
         onClick = onTap,
@@ -105,13 +111,14 @@ fun CryptoInfoRow(
             )
         }
     }
+
 }
 
-@Preview
-@Composable
-fun CryptoInfoRowPreview() {
-    CryptoInfoRow(
-        crypto = sampleCrypto,
-    ) {
-    }
-}
+//@Preview
+//@Composable
+//fun CryptoInfoRowPreview() {
+//    CryptoInfoRow(
+//        crypto = sampleCrypto,
+//    ) {
+//    }
+//}

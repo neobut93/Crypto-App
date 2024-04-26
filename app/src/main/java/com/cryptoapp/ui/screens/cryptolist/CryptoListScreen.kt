@@ -2,18 +2,25 @@ package com.cryptoapp.ui.screens.cryptolist
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,6 +31,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.cryptoapp.R
+import com.cryptoapp.preferences.PreferencesConstants.DATA_KEY
 import com.cryptoapp.ui.screens.cryptolist.components.CryptoInfoList
 import com.cryptoapp.ui.screens.error.ErrorScreen
 import com.cryptoapp.ui.screens.loading.Loading
@@ -40,8 +48,11 @@ fun CryptoListScreen(
     val splashComposition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.lottie))
     val pullRefreshState = rememberPullRefreshState(refreshing =
     refreshState, onRefresh = { viewModel.fetchCryptos() })
+    val context = LocalContext.current
+
 
     Scaffold(
+
         topBar = {
             TopAppBar(
                 title = {
@@ -58,7 +69,23 @@ fun CryptoListScreen(
                     navigationIconContentColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary,
                     actionIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                )
+                ),
+                actions = {
+                    IconButton(
+                        onClick = {
+                            //Log.d("GGG",viewModel.getData(DATA_KEY, true).toString() )
+                            viewModel.fetchCryptos()
+                            if (viewModel.getData(DATA_KEY, false)) {
+                                viewModel.triggerCountrySharedFlow("AAAA")
+                            }
+
+                        },) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Help,
+                            contentDescription = "help",
+                        )
+                    }
+                }
             )
         },
     ) { padding ->
@@ -78,7 +105,11 @@ fun CryptoListScreen(
                     cryptos = state.countries,
                     onCryptoRowTap = onCryptoRowTap,
                     pullRefreshState = pullRefreshState,
-                    isRefreshing = refreshState
+                    isRefreshing = refreshState,
+                    //toast = viewModel.getData(DATA_KEY, false),
+                    //tapIcon = { viewModel.triggerCountrySharedFlow("AAAA") },
+                    //viewModel = viewModel,
+                    //onRefreshTap = viewModel::fetchCryptos
                 )
 
                 is CryptoListState.Error -> {
@@ -87,6 +118,13 @@ fun CryptoListScreen(
                         onAppClose = { activity?.finish() })
                 }
             }
+        }
+    }
+
+    LaunchedEffect(true) {
+        viewModel.countrySharedFlow.collect { message ->
+            Toast.makeText(context, "The $message country row was tapped", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

@@ -58,8 +58,9 @@ class CryptoSingletonModule {
     @Singleton
     fun providesCryptoRepository(
         service: CryptoService,
-        database: CryptoDatabase
+        database: CryptoDatabase,
+        prefs: CryptoSharedPrefs
     ): CryptoRepository = CryptoRepositoryImpl(service,
-        database.cryptoDao()
+        database.cryptoDao(), prefs
     )
 }
