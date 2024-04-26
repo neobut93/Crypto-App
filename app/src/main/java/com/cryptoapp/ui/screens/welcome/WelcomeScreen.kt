@@ -16,22 +16,17 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.cryptoapp.datastore.PreferencesConstants.WELCOME_KEY
-import com.cryptoapp.datastore.PreferencesManager
+import com.cryptoapp.preferences.PreferencesConstants.WELCOME_KEY
 
 @Composable
 fun CryptoWelcomeScreen(
+    viewModel: WelcomeScreenViewModel,
     navigate: () -> Unit
 ) {
-    val context = LocalContext.current
-    val preferencesManager = remember { PreferencesManager(context) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +43,7 @@ fun CryptoWelcomeScreen(
         ) {
             Button(
                 onClick = {
-                    preferencesManager.saveData(WELCOME_KEY, true)
+                    viewModel.saveData(WELCOME_KEY, true)
                     navigate()
                 },
                 shape = RoundedCornerShape(size = 6.dp),
@@ -67,5 +62,5 @@ fun CryptoWelcomeScreen(
 @Preview
 @Composable
 fun OnBoardingScreenPreview() {
-    CryptoWelcomeScreen {}
+    //CryptoWelcomeScreen {}
 }

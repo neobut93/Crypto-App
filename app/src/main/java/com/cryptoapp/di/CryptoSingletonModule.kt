@@ -7,6 +7,8 @@ import com.cryptoapp.network.MyInterceptor
 import com.cryptoapp.repositories.CryptoRepository
 import com.cryptoapp.repositories.CryptoRepositoryImpl
 import com.cryptoapp.database.CryptoDatabase
+import com.cryptoapp.preferences.CryptoSharedPrefs
+import com.cryptoapp.preferences.CryptoSharedPrefsImpl
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -44,6 +46,12 @@ class CryptoSingletonModule {
     @Singleton
     fun provideCryptoDatabase(@ApplicationContext applicationContext: Context): CryptoDatabase {
         return CryptoDatabase.buildDatabase(applicationContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCryptoSharedPrefs(@ApplicationContext applicationContext: Context): CryptoSharedPrefs {
+        return CryptoSharedPrefsImpl(applicationContext)
     }
 
     @Provides
