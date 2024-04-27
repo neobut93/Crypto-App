@@ -10,7 +10,6 @@ This app has below features:
 - room database
 - pull to refresh
 - intents which support navigation to other apps
-- support 
 
 Application screens contain below functionality and features:
 1. splash screen:
